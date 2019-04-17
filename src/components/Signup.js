@@ -1,15 +1,82 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import { FormErrors } from './FormErrors';
 class SignUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPass: '',
+      formErrors: { username: '', email: '', password: '', confirmPass: '' },
+      emailValid: false,
+      usernameValid: false,
+      passwordValid: false,
+      confirmPassValid: false,
+      formValid: false
+    };
+    this.validateField = this.validateField.bind(this);
+  }
+
+  handleUserInput = e => {
+    const field = e.target.name;
+    const valueField = e.target.value;
+    this.setState({ [field]: valueField }, () =>
+      this.validateField(field, valueField)
+    );
+  };
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let usernameValid = this.state.usernameValid;
+    let passwordValid = this.state.passwordValid;
+    let confirmPassValid = this.state.confirmPassValid;
+    switch (fieldName) {
+      case 'username':
+        usernameValid = value.length > 6 && value.length < 12;
+        fieldValidationErrors.username = usernameValid
+          ? ''
+          : 'username must has character > 6 and < 12';
+        break;
+      case 'password':
+        passwordValid = value.length > 6 && value.length < 12;
+        fieldValidationErrors.password = passwordValid
+          ? ''
+          : 'password must has character > 6 and < 12';
+        break;
+      case 'confirmPass':
+        let password = this.state.password;
+        let confirmPass = value;
+        confirmPassValid = confirmPass === password;
+        fieldValidationErrors.confirmPass = confirmPassValid
+          ? ''
+          : 'not match password';
+        break;
+      default:
+        break;
+    }
+    this.setState(
+      { formErrors: fieldValidationErrors, usernameValid, passwordValid, confirmPassValid },
+      this.validateForm
+    );
+  }
+
+  validateForm() {
+    this.setState({
+      formValid: this.state.passwordValid && this.state.confirmPassValid && this.state.usernameValid
+    });
+  }
+
   handleOnSubmit = e => {
     e.preventDefault();
-    const name = $('#inputName').val();
-    const username = $('#inputUser').val();
-    const email = $('#inputEmail').val();
-    const password = $('#inputPass').val();
-    const confirmPass = $('#confirmPass').val();
+    const name = this.state.name;
+    const username = this.state.username;
+    const email = this.state.email;
+    const password = this.state.password;
+    const confirmPass = this.state.confirmPass;
     const user = {
       name,
       username,
@@ -20,7 +87,12 @@ class SignUp extends React.Component {
     axios
       .post('/signup', user, {})
       .then(resp => {
-        this.props.history.push('/signup');
+        if (!resp.data.msg) {
+          this.props.history.push('/login');
+        } else {
+          this.state.formErrors.username = resp.data.msg;
+          this.props.history.push('/signup');
+        }
       })
       .catch(err => {
         this.props.history.push('/signup');
@@ -35,7 +107,9 @@ class SignUp extends React.Component {
             <h2 className="text-center mb-3">
               <i className="fa fa-user-plus" /> Register
             </h2>
-            {/* <% include ./partials/messages %> */}
+            <div className="panel panel-default">
+              <FormErrors formErrors={this.state.formErrors} />
+            </div>
             <form onSubmit={this.handleOnSubmit}>
               <div className="form-group">
                 <label for="name">Name</label>
@@ -45,8 +119,9 @@ class SignUp extends React.Component {
                   name="name"
                   className="form-control"
                   placeholder="Enter Name"
+                  value={this.state.name}
+                  onChange={this.handleUserInput}
                   required
-                  // value="<%= typeof name != 'undefined' ? name : '' %>"
                 />
               </div>
               <div className="form-group">
@@ -57,8 +132,9 @@ class SignUp extends React.Component {
                   name="username"
                   className="form-control"
                   placeholder="Enter Username"
+                  value={this.state.username}
+                  onChange={this.handleUserInput}
                   required
-                  // value="<%= typeof name != 'undefined' ? name : '' %>"
                 />
               </div>
               <div className="form-group">
@@ -69,8 +145,8 @@ class SignUp extends React.Component {
                   name="email"
                   className="form-control"
                   placeholder="Enter Email"
+                  onChange={this.handleUserInput}
                   required
-                  // value="<%= typeof email != 'undefined' ? email : '' %>"
                 />
               </div>
               <div className="form-group">
@@ -81,8 +157,9 @@ class SignUp extends React.Component {
                   name="password"
                   className="form-control"
                   placeholder="Create Password"
+                  value={this.state.password}
+                  onChange={this.handleUserInput}
                   required
-                  // value="<%= typeof password != 'undefined' ? password : '' %>"
                 />
               </div>
               <div className="form-group">
@@ -93,11 +170,16 @@ class SignUp extends React.Component {
                   name="confirmPass"
                   className="form-control"
                   placeholder="Confirm Password"
+                  value={this.state.confirmPass}
+                  onChange={this.handleUserInput}
                   required
-                  // value="<%= typeof confirmPass != 'undefined' ? confirmPass : '' %>"
                 />
               </div>
-              <button type="submit" className="btn btn-primary btn-block">
+              <button
+                type="submit"
+                className="btn btn-primary btn-block"
+                disabled={!this.state.formValid}
+              >
                 Register
               </button>
             </form>

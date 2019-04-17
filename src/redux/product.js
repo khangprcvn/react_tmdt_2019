@@ -112,7 +112,6 @@ export function getSellerProduct() {
 
 
 export default function ProductReducer(state = {}, action) {
-  console.log(action.type);
   switch (action.type) {
     case GET_PRODUCT:
       return {

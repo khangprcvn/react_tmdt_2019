@@ -124,7 +124,6 @@ class AddProduct extends Component {
                 <h5 className="card-title text-center">Product</h5>
                 <form
                   className="form-signin"
-                  // enctype="multipart/form-data"
                   onSubmit={this.handleSubmit}
                 >
                   <div className="form-label-group">

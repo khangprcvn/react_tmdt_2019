@@ -2,7 +2,6 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 module.exports = {
-
   // signUp: (req, res) => {
   //   const name = req.body.name;
   //   const username = req.body.username;
@@ -30,74 +29,47 @@ module.exports = {
   // },
 
   signUp: (req, res) => {
-    const {
-      name,
-      username,
-      email,
-      password,
-      confirmPass
-    } = req.body;
-    let errors = [];
+    const { name, email, password } = req.body;
+    const username = req.body.username.toLowerCase();
+    User.findOne({
+      username: username
+    }).then(user => {
+      if (user) {
+        res.send({msg: "username already exists"});
+      } else {
+        const newUser = new User({
+          name,
+          username,
+          email,
+          password
+        });
 
-    if (password !== confirmPass) {
-      errors.push({
-        msg: 'Passwords do not match'
-      });
-    }
-
-    if (password.length < 6) {
-      errors.push({
-        msg: 'Password must be at least 6 characters'
-      });
-    }
-
-    if (errors.length > 0) {
-      res.render('/signup');
-    } else {
-      User.findOne({
-        username: username
-      }).then(user => {
-        if (user) {
-          errors.push({
-            msg: 'Username already exists'
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => {
+                // console.log(user);
+                res.send(user);
+              })
+              .catch(err => console.log(err));
           });
-          res.redirect('/signup');
-        } else {
-          const newUser = new User({
-            name,
-            username,
-            email,
-            password
-          });
-
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err;
-              newUser.password = hash;
-              newUser
-                .save()
-                .then(user => {
-                  // console.log(user);
-                  res.send(user);
-                })
-                .catch(err => console.log(err));
-            });
-          });
-        }
-      });
-    }
+        });
+      }
+    });
   },
-
 
   logIn: (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
-        return next(err)
+        return next(err);
       }
       if (info) return res.send(info);
       req.logIn(user, err => {
-        if (err) return next(err)
-        return res.send(user)
+        if (err) return next(err);
+        return res.send(user);
       });
     })(req, res, next);
   },
@@ -136,4 +108,4 @@ module.exports = {
   //     res.send('Not OK');
   //   }
   // }
-}
+};
