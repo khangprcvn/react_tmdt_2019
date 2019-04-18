@@ -16,9 +16,9 @@ class ProductDetail extends React.Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    const url = `/product/getDetailProduct/${id}`;
+    const url = `/products/${id}`;
     axios
-      .post(url, { id }, {})
+      .get(url, {})
       .then(result => {
         this.setState({
           product: result.data

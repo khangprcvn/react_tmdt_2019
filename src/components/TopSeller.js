@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Loading from './Loading';
 import { connect } from 'react-redux';
 import { getSellerProduct } from '../redux/product';
 class TopSeller extends React.Component {
@@ -50,7 +48,7 @@ class TopSeller extends React.Component {
         </div>
       ));
     } else {
-      item = <Loading />;
+      item = null;
     }
     return (
       <section className="product-filter-section">

@@ -46,11 +46,10 @@ module.exports = {
     })
   },
   deleteProduct: (req, res) => {
-    const _id = req.body.id;
+    const _id = req.params.id;
     Product.deleteOne({
       _id
     }).then(result => {
-      // console.log(result);
       res.send(result);
     }).catch(err => {
       console.log(err);
@@ -58,11 +57,10 @@ module.exports = {
   },
 
   getOneProduct: (req, res) => {
-    const _id = req.body.id;
+    const _id = req.params.id;
     Product.findOne({
       _id
     }, {}).then(product => {
-      // console.log(product);
       res.send(product);
     }).catch(err => {
       console.log(err);
@@ -70,25 +68,14 @@ module.exports = {
   },
 
   getSellerProduct: (req, res) => {
-    Product.find({}).then(product => {
-      let result = product.filter(product => {
-        return product.price > 200000 && product.price <= 600000
-      })
-      res.send(result);
+    Product.find().then(result => {
+      let product = result.filter(res => res.price > 200000 && res.price <= 600000);
+      res.send(product);
     }).catch(err => {
       console.log(err);
     })
   },
 
-  // getWomenProduct: (req, res) => {
-  //   Product.find({
-  //     sex: false
-  //   }).then(result => {
-  //     res.send(result)
-  //   }).catch(err => {
-  //     console.log(err);
-  //   })
-  // }
   getWomenProduct: (req, res) => {
     const pageSize = parseInt(req.params.pageSize);
     const pageNumber = parseInt(req.params.pageNumber);

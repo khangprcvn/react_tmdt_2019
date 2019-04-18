@@ -17,11 +17,11 @@ pathPage.forEach(route => router.get(route, (req, res) => {
 }))
 
 
-router.get('/product/getallproduct', productController.getAllProduct);
+router.get('/products', productController.getAllProduct);
 
-router.post('/product/addproduct', upload.single('file'), productController.addProduct);
+router.post('/products', upload.single('file'), productController.addProduct);
 
-router.post('/product/deleteproduct', productController.deleteProduct);
+router.delete('/products/:id', productController.deleteProduct);
 
 
 module.exports = router;

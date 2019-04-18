@@ -64,6 +64,6 @@ const adminView = require('./routes/admin');
 app.use('/admin', adminView);
 
 const productView = require('./routes/product');
-app.use('/product', productView);
+app.use('/products', productView);
 
 app.listen(5000, () => console.log('server listen port: 5000'));

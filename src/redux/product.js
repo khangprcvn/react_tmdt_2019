@@ -1,9 +1,12 @@
 import axios from 'axios';
+
 const GET_PRODUCT = 'get_product';
 const ADD_PRODUCT = 'add_product';
 const DEL_PRODUCT = 'del_product';
 const WOMEN_PRODUCT = 'women_product';
 const TOP_SELLER = 'top_seller';
+
+
 // action
 export function getProductAction(data) {
   return {
@@ -40,76 +43,36 @@ export function sellerProductAction(data) {
   }
 }
 
-
-
-export function getAllProduct() {
-  return dispatch => {
-    const url = '/admin/product/getallproduct';
-    axios.get(url, {}).then(result => {
-      // console.log(result.data);
-      dispatch(getProductAction(result.data))
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+// Thunk
+export const getAllProduct = () => async dispatch => {
+  const url = '/admin/products';
+  const response = await axios.get(url, {});
+  dispatch(getProductAction(response.data))
 }
 
-export function addProduct(product) {
-  return dispatch => {
-    const url = "/admin/product/addproduct";
-    axios.post(url, product, {}).then(result => {
-      // console.log(result);
-      dispatch(addProductAction(result.data))      
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+export const deleteProduct = id => async dispatch => {
+  const url = `/admin/products/${id}`;
+  const response = await axios.delete(url, {});
+  dispatch(delProductAction(id))
 }
 
-export function deleteProduct(id) {
-  return dispatch => {
-    const url = "/admin/product/deleteproduct"
-    axios.post(url, {id}, {}).then(data => {
-      // console.log(data);
-      dispatch(delProductAction(id))
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+export const addProduct = product => async dispatch => {
+  const url = '/admin/products';
+  const response = await axios.post(url, product, {});
+  dispatch(addProductAction(response.data));
 }
 
 export const womenProduct = (pageSize, pageNumber) => async dispatch => {
-  const url = `/product/getWomenProduct/${pageSize}/${pageNumber}`;
+  const url = `/products/women/${pageSize}/${pageNumber}`;
   const response = await axios.get(url, {});
   dispatch(womenProductAction(response.data))
 }
 
-// export function womenProduct() {
-//   return dispatch => {
-//     const url = "/product/getWomenProduct"
-//     axios.get(url, {}).then(result => {
-//       // console.log(data);
-//       dispatch(womenProductAction(result.data))
-//     }).catch(err => {
-//       console.log(err);
-//     })
-//   }
-// }
-
-
-export function getSellerProduct() {
-  return dispatch => {
-    const url = "/product/getSellerProduct"
-    axios.get(url, {}).then(result => {
-      // console.log(result.data);
-      dispatch(sellerProductAction(result.data))
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+export const getSellerProduct = () => async dispatch => {
+  const url = '/products/list/seller';
+  const response = await axios.get(url, {});
+  dispatch(sellerProductAction(response.data));
 }
-
-
 
 export default function ProductReducer(state = {}, action) {
   switch (action.type) {
@@ -152,3 +115,5 @@ export default function ProductReducer(state = {}, action) {
       return state;
   }
 }
+
+
