@@ -13,7 +13,7 @@
 html,
 body {
 	height: 100%;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -156,15 +156,29 @@ ol {
 	box-shadow: inset 0 0 0 1px #fff;
 }
 
-.site-btn.sb-dark {
+/* .site-btn.sb-dark {
 	background: #413a3a;
-}
+} */
 
-.site-btn.sb-dark.sb-line {
+/* .site-btn.sb-dark.sb-line {
 	background-color: transparent;
 	color: #111111;
 	-webkit-box-shadow: inset 0 0 0 1px #111111;
 	box-shadow: inset 0 0 0 1px #111111;
+} */
+
+.site-btn.sb-dark.sb-line {
+	background: transparent;
+	color: #189eff;
+	border: #189eff;
+	box-shadow: inset 0 0 0 1px #189eff;
+}
+
+.site-btn.sb-dark.sb-line:hover,
+.site-btn.sb-dark.sb-line:active {
+	color: #fff;
+	background: #189eff;
+	border-color: #189eff
 }
 
 /* Preloder */
@@ -381,6 +395,11 @@ ol {
 .user-panel .up-item a {
 	font-size: 14px;
 	color: #000;
+}
+
+.user-panel .up-item a:hover,
+.user-panel .up-item a:active {
+	color: #f51167;
 }
 
 .user-panel .up-item:first-child {

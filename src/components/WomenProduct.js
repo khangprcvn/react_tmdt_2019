@@ -5,42 +5,40 @@ import { Link } from 'react-router-dom';
 // import Loading from './Loading';
 // import { Loader } from 'semantic-ui-react';
 import { addProduct } from '../redux/cart';
-import { Pagination } from 'semantic-ui-react';
 class WomenProduct extends Component {
   constructor(props) {
     super(props);
-    this.onPageChangeHandle = this.onPageChangeHandle.bind(this);
   }
+
   componentDidMount() {
     // console.log(pageSize, pageNumber);
     this.props.getWomenProduct(15, 1);
   }
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    if (nextProps.newProduct !== this.props.newProduct) {
-      this.addCartProduct(nextProps.newProduct);
-    }
-  }
-  addCartProduct = product => {
-    const productCart = this.props.productCart;
-    let productAlreadyInCart = false;
-    productCart.forEach(pc => {
-      if (pc._id === product._id) {
-        pc.quantity += product.quantity;
-        productAlreadyInCart = true;
-      }
-    });
+  // componentWillReceiveProps(nextProps) {
+  //   // console.log(nextProps);
+  //   if (nextProps.newProduct !== this.props.newProduct) {
+  //     this.addCartProduct(nextProps.newProduct);
+  //   }
+  // }
+  // addCartProduct = product => {
+  //   const productCart = this.props.productCart;
+  //   let productAlreadyInCart = false;
+  //   productCart.forEach(pc => {
+  //     if (pc._id === product._id) {
+  //       pc.quantity += product.quantity;
+  //       productAlreadyInCart = true;
+  //     }
+  //   });
 
-    if (!productAlreadyInCart) {
-      productCart.push(product);
-    }
-  };
+  //   if (!productAlreadyInCart) {
+  //     productCart.push(product);
+  //   }
+  // };
 
-  onPageChangeHandle(event, page) {
-    const pageNumber = page.activePage;
-    this.props.womenProduct(15, pageNumber);
-  }
-
+  // onPageChangeHandle(event, page) {
+  //   const pageNumber = page.activePage;
+  //   this.props.womenProduct(15, pageNumber);
+  // }
 
   render() {
     let productWomen = [
@@ -60,7 +58,7 @@ class WomenProduct extends Component {
         <div className="col-lg-4 col-sm-6">
           <div className="product-item">
             <div className="pi-pic">
-              <img src={product.logo} alt="" />
+              <img src={product.logo} alt="" style={{ marginTop: '20px' }} />
               <div
                 className="pi-links"
                 // onClick={() => this.props.addProduct(product)}
@@ -88,7 +86,7 @@ class WomenProduct extends Component {
         </div>
       ));
     } else {
-      item =  null;
+      item = null;
     }
 
     return (
@@ -195,10 +193,10 @@ class WomenProduct extends Component {
                     </div> */}
                   {item}
                   <div className="text-center w-100 pt-3">
-                    {/* <button className="site-btn sb-line sb-dark">
+                    <button className="site-btn sb-line sb-dark">
                       LOAD MORE
-                    </button> */}
-                    <Pagination defaultActivePage={1} totalPages={10} onPageChange={this.onPageChangeHandle} />
+                    </button>
+                    {/* <Pagination defaultActivePage={1} totalPages={10} onPageChange={this.onPageChangeHandle} /> */}
                   </div>
                 </div>
               </div>
