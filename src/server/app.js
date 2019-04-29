@@ -5,22 +5,29 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
 const passport = require('passport');
-
+const mongoose = require('mongoose');
+const compression = require('compression');
 
 require('../server/config/passport')(passport);
 
-// connect database
-const database = require('./config/database');
-database.connectToServer();
+// // connect database
+// const database = require('./config/database');
+// database.connectToServer();
+
+const MONGODB_URI =
+  'mongodb+srv://khangprcvn:tmdt123@cluster0-c0j5d.mongodb.net/Product_DB';
 
 app.use(express.static(path.join(__dirname, '../../', 'public')));
 app.use(express.static(path.join(__dirname, '../../', 'build')));
 
 
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: false,
+  limit: '50mb'
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
 
 app.use(cookieParser());
 app.use(
@@ -35,16 +42,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(flash());
-
-// app.use((req, res, next) => {
-//   res.locals.success_msg = req.flash('success_msg');
-//   res.locals.error_msg = req.flash('error_msg');
-//   res.locals.error = req.flash('error');
-//   next();
-// })
-
-
 
 // app.use(session({
 //   key: 'user_id',
@@ -55,7 +52,7 @@ app.use(passport.session());
 //     expires: 600000
 //   }
 // }));
-
+app.use(compression());
 
 const userView = require('./routes/home');
 app.use('/', userView);
@@ -66,4 +63,13 @@ app.use('/admin', adminView);
 const productView = require('./routes/product');
 app.use('/products', productView);
 
-app.listen(5000, () => console.log('server listen port: 5000'));
+// app.listen(process.env.PORT || 5000, () => console.log('server listen port: 5000'));
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(result => {
+    app.listen(process.env.PORT || 5000);
+  })
+  .catch(err => {
+    console.log(err);
+  });

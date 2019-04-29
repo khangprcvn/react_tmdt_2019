@@ -41,16 +41,13 @@ const productSchema = new Schema({
   sale: {
     type: Number
   },
-  picture: {
-    namePicture: {type: String, require: true},
-    dataPicture: {type: String, require: true}
-  }
+  logo: String
 });
 
 const Product = module.exports = mongoose.model('products', productSchema);
 
-module.exports.skipLimitProduct = (pageSize, pageNumber) => {
+module.exports.skipLimitProduct = (condition, pageSize, pageNumber) => {
   let skips = pageSize * (pageNumber - 1);
-  let cursor = Product.find().skip(skips).limit(pageSize);
+  let cursor = Product.find(condition).skip(skips).limit(pageSize);
   return cursor;
 }

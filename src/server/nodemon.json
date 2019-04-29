@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_USER": "khangprcvn",
+    "MONGO_PASSWORD": "tmdt123",
+    "MONGO_DEFAULT_DATABASE": "Product_DB"
+  }
+}

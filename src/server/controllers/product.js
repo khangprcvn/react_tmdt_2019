@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-const fs = require('fs');
 
 module.exports = {
   getAllProduct: (req, res) => {
@@ -17,17 +16,9 @@ module.exports = {
     const quantity = 1;
     const information = req.body.information;
     const ingredient = req.body.ingredient;
-    const brand = req.body.brand.toLowerCase();
-    const sex = req.body.sex;
-    const pathPicture = req.file.path;
-    const bufferPicture = fs.readFileSync(pathPicture);
-    const dataPicture = bufferPicture.toString('base64');
-    const namePicture = req.file.originalname;
-    const newPicture = `data:${req.file.mimetype};base64,` + dataPicture;
-    const picture = {
-      namePicture,
-      dataPicture: newPicture
-    }
+    const brand = req.body.brand;
+    const sex = req.body.sex === 'Female' ? true : false;
+    const logo = req.body.logo;
     Product.create({
       name,
       price,
@@ -37,7 +28,7 @@ module.exports = {
       ingredient,
       brand,
       sex,
-      picture
+      logo
     }).then(product => {
       // console.log(product);
       res.send(product);
@@ -79,8 +70,11 @@ module.exports = {
   getWomenProduct: (req, res) => {
     const pageSize = parseInt(req.params.pageSize);
     const pageNumber = parseInt(req.params.pageNumber);
+    const condition = {
+      sex: true
+    }
     // console.log(pageSize, pageNumber)
-    const result = Product.skipLimitProduct(pageSize, pageNumber);
+    const result = Product.skipLimitProduct(condition, pageSize, pageNumber);
     result.then(pro => {
       res.send(pro);
     }).catch(err => {
