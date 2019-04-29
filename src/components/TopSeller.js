@@ -20,10 +20,10 @@ class TopSeller extends React.Component {
         <div className="col-lg-3 col-sm-6" key={product._id}>
           <div className="product-item">
             <div className="pi-pic">
-              <img
+              {/* <img
                 src={product.picture.dataPicture}
                 alt={product.picture.namePicture}
-              />
+              /> */}
               <div className="pi-links">
                 <a href="#" className="add-card">
                   <i className="flaticon-bag" />

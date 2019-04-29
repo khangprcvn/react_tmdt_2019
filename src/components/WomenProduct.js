@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { womenProduct } from '../redux/product';
+import { getWomenProduct } from '../redux/product';
 import { Link } from 'react-router-dom';
 // import Loading from './Loading';
-import { Loader } from 'semantic-ui-react';
+// import { Loader } from 'semantic-ui-react';
 import { addProduct } from '../redux/cart';
 import { Pagination } from 'semantic-ui-react';
 class WomenProduct extends Component {
@@ -13,7 +13,7 @@ class WomenProduct extends Component {
   }
   componentDidMount() {
     // console.log(pageSize, pageNumber);
-    this.props.womenProduct(15, 1);
+    this.props.getWomenProduct(15, 1);
   }
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
@@ -60,10 +60,10 @@ class WomenProduct extends Component {
         <div className="col-lg-4 col-sm-6">
           <div className="product-item">
             <div className="pi-pic">
-              <img src={product.picture.dataPicture} alt="" />
+              <img src={product.logo} alt="" />
               <div
                 className="pi-links"
-                onClick={() => this.props.addProduct(product)}
+                // onClick={() => this.props.addProduct(product)}
               >
                 <Link to="/product/women" className="add-card">
                   <i className="flaticon-bag" />
@@ -88,7 +88,7 @@ class WomenProduct extends Component {
         </div>
       ));
     } else {
-      item =  <Loader active inline='centered' />
+      item =  null;
     }
 
     return (
@@ -218,5 +218,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { womenProduct, addProduct }
+  { getWomenProduct, addProduct }
 )(WomenProduct);

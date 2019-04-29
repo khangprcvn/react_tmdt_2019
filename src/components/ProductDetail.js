@@ -33,8 +33,6 @@ class ProductDetail extends React.Component {
     if (!this.state.product) {
       return <Loading />
     }
-    console.log(this.state.product);
-    console.log(this.state.product.picture);
     return (
       <div>
         <div class="page-top-info">
@@ -53,7 +51,7 @@ class ProductDetail extends React.Component {
             <div className="row">
               <div className="col-lg-6">
                 <div className="product-pic-zoom">
-                  <img className="product-big-img" src={this.state.product.picture.dataPicture} alt="" />
+                  <img className="product-big-img" src={this.state.product.logo} alt="" />
                 </div>
                 <div className="product-thumbs" tabIndex="1">
                   <div className="product-thumbs-track">

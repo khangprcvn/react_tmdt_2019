@@ -1,0 +1,28 @@
+/*
+** @spin 
+**/
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 5px solid;
+  border-color: #009688 #fafafa #009688 #fafafa;
+  animation: spin 3s linear infinite;
+}

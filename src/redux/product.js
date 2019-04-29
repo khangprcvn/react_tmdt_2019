@@ -62,7 +62,7 @@ export const addProduct = product => async dispatch => {
   dispatch(addProductAction(response.data));
 }
 
-export const womenProduct = (pageSize, pageNumber) => async dispatch => {
+export const getWomenProduct = (pageSize, pageNumber) => async dispatch => {
   const url = `/products/women/${pageSize}/${pageNumber}`;
   const response = await axios.get(url, {});
   dispatch(womenProductAction(response.data))

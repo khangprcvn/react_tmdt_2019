@@ -29,7 +29,7 @@ const routes = [
 
   
   { view: 'admin', path: '/admin', component: AdminPage, exact: true },
-  { view: 'admin', path: '/admin/product/addproduct', component: AddProduct, exact: true}
+  { view: 'admin', path: '/admin/products/add', component: AddProduct, exact: true}
 ];
 
 const switches = (

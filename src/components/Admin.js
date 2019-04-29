@@ -14,7 +14,7 @@ class Admin extends React.Component {
   }
 
   onCreate() {
-    this.props.history.push({ pathname: '/admin/product/addproduct'});
+    this.props.history.push({ pathname: '/admin/products/add'});
   }
 
   onDelete(id) {
