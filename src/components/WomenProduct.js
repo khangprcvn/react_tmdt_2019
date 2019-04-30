@@ -56,6 +56,7 @@ class WomenProduct extends Component {
   // }
 
   render() {
+    console.log(this.props);
     let list = [],
     pageTotal = 0,
     pageNumber = 0,
