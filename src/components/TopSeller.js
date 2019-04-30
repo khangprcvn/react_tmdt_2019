@@ -7,12 +7,7 @@ class TopSeller extends React.Component {
     this.props.getSellerProduct();
   }
   render() {
-    // console.log('top', this.props.sellerProduct);
-    let sellerProduct = [
-      {
-        picture: { dataPicture: '' }
-      }
-    ];
+    let sellerProduct = [];
     let item;
     if (this.props.sellerProduct !== undefined) {
       sellerProduct = this.props.sellerProduct;
@@ -20,10 +15,10 @@ class TopSeller extends React.Component {
         <div className="col-lg-3 col-sm-6" key={product._id}>
           <div className="product-item">
             <div className="pi-pic">
-              {/* <img
-                src={product.picture.dataPicture}
-                alt={product.picture.namePicture}
-              /> */}
+              <img
+                src={product.logo}
+                alt=""
+              />
               <div className="pi-links">
                 <a href="#" className="add-card">
                   <i className="flaticon-bag" />
@@ -35,7 +30,7 @@ class TopSeller extends React.Component {
               </div>
             </div>
             <div className="pi-text">
-              <h6>{product.price}VNĐ</h6>
+              <h6>{product.price/1000}.000đ</h6>
               <Link
                 to={{
                   pathname: `/product/detail/${product._id}`
@@ -54,13 +49,10 @@ class TopSeller extends React.Component {
       <section className="product-filter-section">
         <div className="container">
           <div className="section-title">
-            <h2>BROWSE TOP SELLING PRODUCTS</h2>
+            <h2>Sản Phẩm Bán Chạy</h2>
           </div>
 
           <div className="row">{item}</div>
-          <div className="text-center pt-5">
-            {/* <button className="site-btn sb-line sb-dark">LOAD MORE</button> */}
-          </div>
         </div>
       </section>
     );
