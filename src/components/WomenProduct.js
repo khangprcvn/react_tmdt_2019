@@ -87,7 +87,7 @@ class WomenProduct extends Component {
                 </div>
               </div>
               <div className="pi-text">
-                <h6>{product.price}</h6>
+                <h6>{(product.price)/1000}.000đ</h6>
                 <Link
                   to={{
                     pathname: `/product/detail/${product._id}`
