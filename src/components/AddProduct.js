@@ -13,6 +13,7 @@ class AddProduct extends Component {
         information: '',
         ingredient: '',
         brand: 'Sakura',
+        category: '',
         sex: 'Female',
         logo: ''
       }
@@ -43,24 +44,6 @@ class AddProduct extends Component {
     e.preventDefault();
     this.props.addProduct(this.state.product);
   };
-
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   // let changes = new FormData();
-  //   const data = new FormData();
-  //   data.append('name', this.state.product.name);
-  //   data.append('price', this.state.product.price);
-  //   data.append('amount', this.state.product.amount);
-  //   data.append('information', this.state.product.information);
-  //   data.append('ingredient', this.state.product.ingredient);
-  //   data.append('brand', this.state.product.brand);
-  //   data.append('sex', this.state.product.sex);
-  //   data.append('file', this.state.selectFile);
-  //   this.props.addProduct(data);
-  //   this.props.history.push({ pathname: '/admin/' });
-  //   // console.log(this.state.product);
-  // };
-
   render() {
     return (
       <div className="container">
@@ -126,7 +109,7 @@ class AddProduct extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="email">Sex</label>
+                    <label for="sex">Sex</label>
                     <select
                       class="form-control"
                       id="sex"
@@ -136,6 +119,25 @@ class AddProduct extends Component {
                     >
                       <option>Female</option>
                       <option>Male</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label for="category">Category</label>
+                    <select
+                      class="form-control"
+                      id="category"
+                      name="category"
+                      value={this.state.product.category}
+                      onChange={this.handleChangeInput}
+                    >
+                      <option>Dưỡng ẩm</option>
+                      <option>Dưỡng trắng</option>
+                      <option>Mặt nạ</option>
+                      <option>Chống nắng</option>
+                      <option>Trị mụn</option>
+                      <option>Xịt khoáng</option>
+                      <option>Sữa tắm</option>
+                      <option>Dưỡng thể</option>
                     </select>
                   </div>
                   <div className="form-group">

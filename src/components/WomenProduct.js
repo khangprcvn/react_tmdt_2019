@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 // import { getWomenProduct } from '../redux/product';
 import { getProductPage, loadMoreProduct } from '../redux/product';
 import { Link } from 'react-router-dom';
+// import 'jquery';
 // import { Loader } from 'semantic-ui-react';
 import { addProduct } from '../redux/cart';
 import Loading from './Loading';
+import loadjs from 'loadjs';
 class WomenProduct extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +20,7 @@ class WomenProduct extends Component {
   }
 
   componentDidMount() {
+    loadjs('../js/main.js');
     this.props.getProductPage(6, 1, null, null);
   }
 
@@ -56,11 +59,10 @@ class WomenProduct extends Component {
   // }
 
   render() {
-    console.log(this.props);
     let list = [],
-    pageTotal = 0,
-    pageNumber = 0,
-    totalItem = 0;
+      pageTotal = 0,
+      pageNumber = 0,
+      totalItem = 0;
     let listProduct;
     if (this.props.product.productWomen !== undefined) {
       list = this.props.product.productWomen.list;
@@ -69,7 +71,12 @@ class WomenProduct extends Component {
       totalItem = this.props.product.productWomen.totalItem;
       listProduct = list.map((product, index) => {
         return (
-          <div className="col-lg-4 col-sm-4" key={index} style={{cursor: "pointer"}} onClick={() => this.handleDetailProduct(product._id)}>
+          <div
+            className="col-lg-4 col-sm-4"
+            key={index}
+            style={{ cursor: 'pointer' }}
+            onClick={() => this.handleDetailProduct(product._id)}
+          >
             <div className="product-item">
               <div className="pi-pic">
                 <img src={product.logo} alt="" style={{ marginTop: '20px' }} />
@@ -87,7 +94,7 @@ class WomenProduct extends Component {
                 </div>
               </div>
               <div className="pi-text">
-                <h6>{(product.price)/1000}.000đ</h6>
+                <h6>{product.price / 1000}.000đ</h6>
                 <Link
                   to={{
                     pathname: `/product/detail/${product._id}`
@@ -98,12 +105,12 @@ class WomenProduct extends Component {
               </div>
             </div>
           </div>
-        )
-      })
+        );
+      });
     } else {
       listProduct = <Loading />;
     }
-    
+
     return (
       <div>
         <div className="page-top-info">
@@ -122,23 +129,68 @@ class WomenProduct extends Component {
                   <h2 className="fw-title">Categories</h2>
                   <ul className="category-menu">
                     <li>
-                      <a href="#">Sữa rửa mặt</a>
+                      <a href="#">Chăm sóc da mặt</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <Link
+                            to={{
+                              pathname: `/product/category/duong am`
+                            }}
+                          >
+                            Dưỡng ẩm
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to={{
+                              pathname: `/product/category/duong trang`
+                            }}
+                          >
+                            Dưỡng trắng
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to={{
+                              pathname: `/product/category/mat na`
+                            }}
+                          >
+                            Mặt nạ
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to={{
+                              pathname: `/product/category/chong nang`
+                            }} >
+                            Chống nắng
+                          </Link>
+                        </li>
+                        <li>
+                          <a href="#">Trị mụn</a>
+                        </li>
+                        <li>
+                          <a href="#">Xịt khoáng</a>
+                        </li>
+                      </ul>
                     </li>
                     <li>
-                      <a href="#">Sữa tắm</a>
-                    </li>
-                    <li>
-                      <a href="#">Kem làm trắng da</a>
-                    </li>
-                    <li>
-                      <a href="#">Kem dưỡng da</a>
+                      <a href="#">Chăm sóc cơ thể</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="#">Sữa tắm</a>
+                        </li>
+                        <li>
+                          <a href="#">Dưỡng thể</a>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </div>
                 <div className="filter-widget mb-0">
                   <h2 className="fw-title">refine by</h2>
-                  <div className="price-range-wrap">
-                    {/* <h4>Price</h4>
+                  {/* <div className="price-range-wrap">
+                    <h4>Price</h4>
                     <div
                       className="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                       data-min="10"
@@ -147,25 +199,25 @@ class WomenProduct extends Component {
                       <div
                         className="ui-slider-range ui-corner-all ui-widget-header"
                         style={{ left: '0%', width: '100%' }}
-                      /> */}
-                    {/* <span
+                      />
+                    <span
                         tabindex="0"
                         className="ui-slider-handle ui-corner-all ui-state-default"
                         style={{ left: '0%' }}
-                      /> */}
-                    {/* <span
+                      />
+                    <span
                         tabindex="0"
                         className="ui-slider-handle ui-corner-all ui-state-default"
                         style={{ left: '100%' }}
-                      /> */}
-                    {/* </div> */}
-                    {/* <div className="range-slider">
+                      />
+                    </div>
+                    <div className="range-slider">
                       <div className="price-input">
                         <input type="text" id="minamount" />
                         <input type="text" id="maxamount" />
                       </div>
-                    </div> */}
-                  </div>
+                    </div>
+                  </div> */}
                 </div>
                 <div className="filter-widget">
                   <h2 className="fw-title">Brand</h2>
@@ -208,11 +260,14 @@ class WomenProduct extends Component {
                     </div> */}
                   {listProduct}
                   <div className="text-center w-100 pt-3">
-                  {pageNumber < pageTotal && (
-                    <button className="site-btn sb-line sb-dark" onClick={() => this.handleLoadPage(pageNumber + 1)}>
-                     Xem thêm
-                    </button>
-                  )}
+                    {pageNumber < pageTotal && (
+                      <button
+                        className="site-btn sb-line sb-dark"
+                        onClick={() => this.handleLoadPage(pageNumber + 1)}
+                      >
+                        Xem thêm
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

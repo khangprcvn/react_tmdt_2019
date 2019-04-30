@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 
 module.exports = {
+
   getAllProduct: (req, res) => {
     Product.find().then(result => {
       res.send(result);
@@ -18,6 +19,7 @@ module.exports = {
     const ingredient = req.body.ingredient;
     const brand = req.body.brand;
     const sex = req.body.sex === 'Female' ? true : false;
+    const category = Product.changeAlias(req.body.category);
     const logo = req.body.logo;
     Product.create({
       name,
@@ -28,6 +30,7 @@ module.exports = {
       ingredient,
       brand,
       sex,
+      category,
       logo
     }).then(product => {
       // console.log(product);
@@ -75,8 +78,18 @@ module.exports = {
     }
     Product.getProductPage(pageNumber, pageSize, condition, (error, data) => {
       res.send({
-        error, data
+        error,
+        data
       })
     });
+  },
+
+  getCategoryProduct: (req, res) => {
+    const category = req.params.name;
+    Product.find({category}).then(result => {
+      res.send(result)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }

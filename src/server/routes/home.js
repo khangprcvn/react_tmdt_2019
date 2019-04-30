@@ -2,11 +2,11 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 const userContrl = require('../controllers/user');
-const {
-  forwardAuthenticated
-} = require('../config/auth');
-const pathPage = ['/', '/login', '/signup', '/product/women', '/product/men', '/product/brand/:id',
-  '/product/cart', '/product/checkout', '/product/detail/:id'
+// const {
+//   forwardAuthenticated
+// } = require('../config/auth');
+const pathPage = ['/', '/login', '/signup', '/product/women', '/product/men', '/product/brand/:id', 
+'/product/category/:name', '/product/cart', '/product/checkout', '/product/detail/:id'
 ];
 
 pathPage.forEach(route => router.get(route, (req, res) => {
