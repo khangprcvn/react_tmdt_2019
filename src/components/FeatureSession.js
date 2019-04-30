@@ -73,7 +73,7 @@ export default class FeatureSection extends React.Component {
                   <div className="feature-icon">
                     <img src="/img/icons/1.png" alt="#" />
                   </div>
-                  <h2>Fast Secure Payments</h2>
+                  <h2>Chất lượng</h2>
                 </div>
               </div>
               <div className="col-md-4 p-0 feature">
@@ -81,7 +81,7 @@ export default class FeatureSection extends React.Component {
                   <div className="feature-icon">
                     <img src="/img/icons/1.png" alt="#" />
                   </div>
-                  <h2>Premium Products</h2>
+                  <h2>Uy tín</h2>
                 </div>
               </div>
               <div className="col-md-4 p-0 feature">
@@ -89,7 +89,7 @@ export default class FeatureSection extends React.Component {
                   <div className="feature-icon">
                     <img src="/img/icons/1.png" alt="#" />
                   </div>
-                  <h2>Free & fast Delivery</h2>
+                  <h2>Dịch vụ nhanh & miễn phí</h2>
                 </div>
               </div>
             </div>
