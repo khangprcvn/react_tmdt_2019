@@ -1,8 +1,77 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import Loading from './Loading';
 class BrandProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: []
+    };
+    this.handleDetailProduct = this.handleDetailProduct.bind(this);
+  }
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    const url = `/products/brand/${id}`;
+    axios
+      .get(url, {})
+      .then(result => {
+        this.setState({
+          product: result.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  handleDetailProduct(id) {
+    this.props.history.push(`/product/detail/${id}`);
+  }
   render() {
+    // console.log(this.state.product);
+    let listItem;
+    if (this.state.product) {
+      listItem = this.state.product.map((pro, index) => {
+        return (
+          <div
+            className="col-lg-4 col-sm-4"
+            key={index}
+            style={{ cursor: 'pointer' }}
+            onClick={() => this.handleDetailProduct(pro._id)}
+          >
+            <div className="product-item">
+              <div className="pi-pic">
+                <img src={pro.logo} alt="" style={{ marginTop: '20px' }} />
+                <div
+                  className="pi-links"
+                  // onClick={() => this.props.addProduct(product)}
+                >
+                  <Link to="/product/women" className="add-card">
+                    <i className="flaticon-bag" />
+                    <span>ADD TO CART</span>
+                  </Link>
+                  <Link to="#" className="wishlist-btn">
+                    <i className="flaticon-heart" />
+                  </Link>
+                </div>
+              </div>
+              <div className="pi-text">
+                <h6>{pro.price / 1000}.000đ</h6>
+                <Link
+                  to={{
+                    pathname: `/product/detail/${pro._id}`
+                  }}
+                >
+                  {pro.name}
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      });
+    } else {
+      listItem = <Loading />;
+    }
     return (
       <div>
         <div className="page-top-info">
@@ -21,271 +90,26 @@ class BrandProduct extends React.Component {
                   <h2 class="fw-title">Brand</h2>
                   <ul class="category-menu">
                     <li>
-                      <a href="#">
-                        Sakura 
-                      </a>
+                      <a href="/product/brand/sakura">Sakura</a>
                     </li>
                     <li>
-                      <a href="#">
-                        Paula
-                      </a>
+                      <a href="/product/brand/paula">Paula</a>
                     </li>
                     <li>
-                      <a href="#">
-                        Clinque
-                      </a>
+                      <a href="/product/brand/clinque">Clinque</a>
+                    </li>
+                    <li>
+                      <a href="/product/brand/neostrata">Neostrata</a>
                     </li>
                   </ul>
                 </div>
               </div>
-
               <div class="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <div class="tag-sale">ON SALE</div>
-                        <img src="/img/product/5.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>199000</h6>
-                        <p>Kem Sakura</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/1.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/2.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/3.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Black and White Stripes Dress</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/4.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/5.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/5.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/2.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/1.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>140000</h6>
-                        <p>Flamboyant Pink Top </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <div class="tag-new">new</div>
-                        <img src="/img/product/2.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>170000</h6>
-                        <p>Black and White Stripes Dress</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/3.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>150000</h6>
-                        <p>Flamboyant Pink Top </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product-item">
-                      <div class="pi-pic">
-                        <img src="/img/product/4.jpg" alt="" />
-                        <div class="pi-links">
-                          <a href="#" class="add-card">
-                            <i class="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" class="wishlist-btn">
-                            <i class="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="pi-text">
-                        <h6>299000</h6>
-                        <p>Flamboyant Pink Top </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="text-center w-100 pt-3">
+                  {listItem}
+                  {/* <div class="text-center w-100 pt-3">
                     <button class="site-btn sb-line sb-dark">LOAD MORE</button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

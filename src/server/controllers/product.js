@@ -17,7 +17,7 @@ module.exports = {
     const quantity = 1;
     const information = req.body.information;
     const ingredient = req.body.ingredient;
-    const brand = req.body.brand;
+    const brand = req.body.brand.toLowerCase();
     const sex = req.body.sex === 'Female' ? true : false;
     const category = Product.changeAlias(req.body.category);
     const logo = req.body.logo;
@@ -87,6 +87,15 @@ module.exports = {
   getCategoryProduct: (req, res) => {
     const category = req.params.name;
     Product.find({category}).then(result => {
+      res.send(result)
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+
+  getBrandProduct: (req, res) => {
+    const brand = req.params.id;
+    Product.find({brand}).then(result => {
       res.send(result)
     }).catch(error => {
       console.log(error)
