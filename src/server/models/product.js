@@ -52,7 +52,7 @@ const Product = module.exports = mongoose.model('products', productSchema);
 //   return cursor;
 // }
 
-module.exports.getProductPage = (pageSize, pageNumber, condition, done) => {
+module.exports.getProductPage = (pageNumber, pageSize, condition, done) => {
   Product.find(condition).countDocuments({}, (error, totalItem) => {
     if (error) {
       done(error)
