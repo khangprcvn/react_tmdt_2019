@@ -143,7 +143,7 @@ export function getProductPage(pageSize, pageNumber, done) {
 
 export function loadMoreProduct(pageSize, pageNumber, done) {
   return dispatch => {
-    const url = `/products/women/${pageSize}/${pageNumber}`;
+    const url = `/products/women/${pageNumber}/${pageSize}`;
     axios.get(url, {}).then(response => {
       let {
         list,
