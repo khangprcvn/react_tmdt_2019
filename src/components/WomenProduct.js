@@ -60,45 +60,49 @@ class WomenProduct extends Component {
     pageTotal = 0,
     pageNumber = 0,
     totalItem = 0;
+    let listProduct;
     if (this.props.product.productWomen !== undefined) {
       list = this.props.product.productWomen.list;
       pageTotal = this.props.product.productWomen.pageTotal;
       pageNumber = this.props.product.productWomen.pageNumber;
       totalItem = this.props.product.productWomen.totalItem;
-    }
-    const listProduct = list.map((product, index) => {
-      return (
-        <div className="col-lg-4 col-sm-4" key={index} style={{cursor: "pointer"}} onClick={() => this.handleDetailProduct(product._id)}>
-          <div className="product-item">
-            <div className="pi-pic">
-              <img src={product.logo} alt="" style={{ marginTop: '20px' }} />
-              <div
-                className="pi-links"
-                // onClick={() => this.props.addProduct(product)}
-              >
-                <Link to="/product/women" className="add-card">
-                  <i className="flaticon-bag" />
-                  <span>ADD TO CART</span>
-                </Link>
-                <Link to="#" className="wishlist-btn">
-                  <i className="flaticon-heart" />
+      listProduct = list.map((product, index) => {
+        return (
+          <div className="col-lg-4 col-sm-4" key={index} style={{cursor: "pointer"}} onClick={() => this.handleDetailProduct(product._id)}>
+            <div className="product-item">
+              <div className="pi-pic">
+                <img src={product.logo} alt="" style={{ marginTop: '20px' }} />
+                <div
+                  className="pi-links"
+                  // onClick={() => this.props.addProduct(product)}
+                >
+                  <Link to="/product/women" className="add-card">
+                    <i className="flaticon-bag" />
+                    <span>ADD TO CART</span>
+                  </Link>
+                  <Link to="#" className="wishlist-btn">
+                    <i className="flaticon-heart" />
+                  </Link>
+                </div>
+              </div>
+              <div className="pi-text">
+                <h6>{product.price}</h6>
+                <Link
+                  to={{
+                    pathname: `/product/detail/${product._id}`
+                  }}
+                >
+                  {product.name}
                 </Link>
               </div>
             </div>
-            <div className="pi-text">
-              <h6>{product.price}</h6>
-              <Link
-                to={{
-                  pathname: `/product/detail/${product._id}`
-                }}
-              >
-                {product.name}
-              </Link>
-            </div>
           </div>
-        </div>
-      )
-    })
+        )
+      })
+    } else {
+      listProduct = null;
+    }
+    
     return (
       <div>
         <div className="page-top-info">
