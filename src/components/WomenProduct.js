@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getWomenProduct } from '../redux/product';
+// import { getWomenProduct } from '../redux/product';
+import { getProductPage, loadMoreProduct } from '../redux/product';
 import { Link } from 'react-router-dom';
 // import Loading from './Loading';
 // import { Loader } from 'semantic-ui-react';
@@ -8,12 +9,26 @@ import { addProduct } from '../redux/cart';
 class WomenProduct extends Component {
   constructor(props) {
     super(props);
+    this.handleDetailProduct = this.handleDetailProduct.bind(this);
+    this.handleLoadPage = this.handleLoadPage.bind(this);
+  }
+
+  handleDetailProduct(id) {
+    this.props.history.push(`/product/detail/${id}`);
   }
 
   componentDidMount() {
-    // console.log(pageSize, pageNumber);
-    this.props.getWomenProduct(15, 1);
+    this.props.getProductPage(6, 1, null, null);
   }
+
+  handleLoadPage(pageNumber) {
+    this.props.loadMoreProduct(6, pageNumber, null, null);
+  }
+
+  // componentDidMount() {
+  //   // console.log(pageSize, pageNumber);
+  //   this.props.getWomenProduct(6, 1);
+  // }
   // componentWillReceiveProps(nextProps) {
   //   // console.log(nextProps);
   //   if (nextProps.newProduct !== this.props.newProduct) {
@@ -41,21 +56,19 @@ class WomenProduct extends Component {
   // }
 
   render() {
-    let productWomen = [
-      {
-        picture: { dataPicture: '' },
-        price: 0,
-        name: ''
-      }
-    ];
-    let item;
-    if (
-      this.props.product !== null &&
-      this.props.product.productWomen !== undefined
-    ) {
-      productWomen = this.props.product.productWomen;
-      item = productWomen.map(product => (
-        <div className="col-lg-4 col-sm-6">
+    let list = [],
+    pageTotal = 0,
+    pageNumber = 0,
+    totalItem = 0;
+    if (this.props.product.productWomen !== undefined) {
+      list = this.props.product.productWomen.list;
+      pageTotal = this.props.product.productWomen.pageTotal;
+      pageNumber = this.props.product.productWomen.pageNumber;
+      totalItem = this.props.product.productWomen.totalItem;
+    }
+    const listProduct = list.map((product, index) => {
+      return (
+        <div className="col-lg-4 col-sm-4" key={index} style={{cursor: "pointer"}} onClick={() => this.handleDetailProduct(product._id)}>
           <div className="product-item">
             <div className="pi-pic">
               <img src={product.logo} alt="" style={{ marginTop: '20px' }} />
@@ -84,11 +97,8 @@ class WomenProduct extends Component {
             </div>
           </div>
         </div>
-      ));
-    } else {
-      item = null;
-    }
-
+      )
+    })
     return (
       <div>
         <div className="page-top-info">
@@ -191,12 +201,13 @@ class WomenProduct extends Component {
                         <p>Black and White Stripes Dress</p>
                       </div>
                     </div> */}
-                  {item}
+                  {listProduct}
                   <div className="text-center w-100 pt-3">
-                    <button className="site-btn sb-line sb-dark">
-                      LOAD MORE
+                  {pageNumber < pageTotal && (
+                    <button className="site-btn sb-line sb-dark" onClick={() => this.handleLoadPage(pageNumber + 1)}>
+                     Xem thêm
                     </button>
-                    {/* <Pagination defaultActivePage={1} totalPages={10} onPageChange={this.onPageChangeHandle} /> */}
+                  )}
                   </div>
                 </div>
               </div>
@@ -210,11 +221,16 @@ class WomenProduct extends Component {
 
 const mapStateToProps = state => ({
   product: state.product,
-  productCart: state.cart.productCart,
+  // productCart: state.cart.productCart,
   newProduct: state.cart.productToAdd
 });
 
+// export default connect(
+//   mapStateToProps,
+//   { getWomenProduct, addProduct }
+// )(WomenProduct);
+
 export default connect(
   mapStateToProps,
-  { getWomenProduct, addProduct }
+  { getProductPage, loadMoreProduct }
 )(WomenProduct);

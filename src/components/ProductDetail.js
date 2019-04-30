@@ -31,13 +31,13 @@ class ProductDetail extends React.Component {
 
   render() {
     if (!this.state.product) {
-      return <Loading />
+      return <Loading />;
     }
     return (
       <div>
         <div class="page-top-info">
           <div class="container">
-            <h4>Product Detail</h4>
+            <h4>Chi tiết sản phảm</h4>
             <div class="site-pagination">
               <Link to="/">Home</Link> /<Link to="/product">Product</Link>
             </div>
@@ -46,12 +46,16 @@ class ProductDetail extends React.Component {
         <section className="product-section">
           <div className="container">
             <div className="back-link">
-              <Link to="/"> &lt;&lt; Back to Category</Link>
+              <Link to="/product/women"> &lt;&lt; Quay về trang sản phẩm</Link>
             </div>
             <div className="row">
               <div className="col-lg-6">
                 <div className="product-pic-zoom">
-                  <img className="product-big-img" src={this.state.product.logo} alt="" />
+                  <img
+                    className="product-big-img"
+                    src={this.state.product.logo}
+                    alt=""
+                  />
                 </div>
                 <div className="product-thumbs" tabIndex="1">
                   <div className="product-thumbs-track">
@@ -77,7 +81,7 @@ class ProductDetail extends React.Component {
                 <h2 className="p-title">{this.state.product.name}</h2>
                 <h3 className="p-price">{this.state.product.price}VNĐ</h3>
                 <h4 className="p-stock">
-                  Available: <span>In Stock</span>
+                  Tình trạng: <span>Còn hàng</span>
                 </h4>
                 <div className="p-rating">
                   <i className="fa fa-star-o" />
@@ -90,12 +94,21 @@ class ProductDetail extends React.Component {
                   <a href="">3 reviews</a>|<a href="">Add your review</a>
                 </div>
                 <div className="quantity">
-                  <p>Quantity</p>
+                  <p>Số lượng</p>
                   <div className="pro-qty">
-                    <input id="quantity" type="text" min="1" value={this.state.product.quantity} />
+                    <input
+                      id="quantity"
+                      type="number"
+                      min="1"
+                      defaultValue="1"
+                      // value={this.state.product.quantity}
+                    />
                   </div>
                 </div>
-                <button className="site-btn">SHOP NOW</button>
+                <button className="site-btn">
+                  <i class="fa fa-shopping-cart" /> {' '}
+                  Chọn mua
+                </button>
                 <div id="accordion" className="accordion-area">
                   <div className="panel">
                     <div className="panel-header" id="headingOne">
@@ -106,7 +119,7 @@ class ProductDetail extends React.Component {
                         aria-expanded="true"
                         aria-controls="collapse1"
                       >
-                        Information
+                        Thông tin
                       </button>
                     </div>
                     <div
@@ -115,7 +128,9 @@ class ProductDetail extends React.Component {
                       aria-labelledby="headingOne"
                       data-parent="#accordion"
                     >
-                      <div className="panel-body">{this.state.product.information}</div>
+                      <div className="panel-body">
+                        {this.state.product.information}
+                      </div>
                     </div>
                   </div>
                   <div className="panel">
@@ -127,7 +142,7 @@ class ProductDetail extends React.Component {
                         aria-expanded="false"
                         aria-controls="collapse2"
                       >
-                        Ingredient{' '}
+                        Thành phần{' '}
                       </button>
                     </div>
                     <div
@@ -160,7 +175,7 @@ class ProductDetail extends React.Component {
                       data-parent="#accordion"
                     >
                       <div className="panel-body">
-                        <h4>Free Ship</h4>
+                        <h4>Free Ship & Trả hàng trong vòng 30 ngày</h4>
                       </div>
                     </div>
                   </div>

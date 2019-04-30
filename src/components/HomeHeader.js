@@ -88,7 +88,7 @@ class HomeHeader extends React.Component {
               </li>
               <li>
                 <Link to="#1">
-                  Khuyễn mãi
+                  Khuyến mãi
                   <span className="new">Hot</span>
                 </Link>
               </li>

@@ -73,12 +73,10 @@ module.exports = {
     const condition = {
       sex: true
     }
-    // console.log(pageSize, pageNumber)
-    const result = Product.skipLimitProduct(condition, pageSize, pageNumber);
-    result.then(pro => {
-      res.send(pro);
-    }).catch(err => {
-      console.log(err)
-    })
+    Product.getProductPage(pageNumber, pageSize, condition, (error, data) => {
+      res.send({
+        error, data
+      })
+    });
   }
 }

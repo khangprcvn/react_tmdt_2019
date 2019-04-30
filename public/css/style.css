@@ -1645,6 +1645,12 @@ ol {
 
 .product-details .site-btn {
 	min-width: 190px;
+	background:#FF4040;
+}
+
+.product-details .site-btn:hover,
+.product-details .site-btn:active {
+	background: #ff7373;
 }
 
 .product-details .social-sharing {
