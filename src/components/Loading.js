@@ -5,9 +5,9 @@ const Loading = () =>
         position: 'fixed',
         top: 0,
         left: '60%',
-        transform: 'translate(-50%, 50%)',
+        // transform: 'translate(-50%, 50%)',
         display: 'inline-block',
-        marginTop: '3px',
+        marginTop: '10%',
         zIndex: 2000
     }}>
         <img src={loadPicture} alt="loading"/>

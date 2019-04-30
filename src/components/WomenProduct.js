@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 // import { getWomenProduct } from '../redux/product';
 import { getProductPage, loadMoreProduct } from '../redux/product';
 import { Link } from 'react-router-dom';
-// import Loading from './Loading';
 // import { Loader } from 'semantic-ui-react';
 import { addProduct } from '../redux/cart';
+import Loading from './Loading';
 class WomenProduct extends Component {
   constructor(props) {
     super(props);
@@ -101,7 +101,7 @@ class WomenProduct extends Component {
         )
       })
     } else {
-      listProduct = null;
+      listProduct = <Loading />;
     }
     
     return (
