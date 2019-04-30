@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { getWomenProduct } from '../redux/product';
 import { getProductPage, loadMoreProduct } from '../redux/product';
 import { Link } from 'react-router-dom';
-// import 'jquery';
-// import { Loader } from 'semantic-ui-react';
 import { addProduct } from '../redux/cart';
 import Loading from './Loading';
 import loadjs from 'loadjs';
@@ -187,38 +184,6 @@ class WomenProduct extends Component {
                     </li>
                   </ul>
                 </div>
-                <div className="filter-widget mb-0">
-                  <h2 className="fw-title">refine by</h2>
-                  {/* <div className="price-range-wrap">
-                    <h4>Price</h4>
-                    <div
-                      className="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                      data-min="10"
-                      data-max="270"
-                    >
-                      <div
-                        className="ui-slider-range ui-corner-all ui-widget-header"
-                        style={{ left: '0%', width: '100%' }}
-                      />
-                    <span
-                        tabindex="0"
-                        className="ui-slider-handle ui-corner-all ui-state-default"
-                        style={{ left: '0%' }}
-                      />
-                    <span
-                        tabindex="0"
-                        className="ui-slider-handle ui-corner-all ui-state-default"
-                        style={{ left: '100%' }}
-                      />
-                    </div>
-                    <div className="range-slider">
-                      <div className="price-input">
-                        <input type="text" id="minamount" />
-                        <input type="text" id="maxamount" />
-                      </div>
-                    </div>
-                  </div> */}
-                </div>
                 <div className="filter-widget">
                   <h2 className="fw-title">Brand</h2>
                   <ul className="category-menu">
@@ -239,25 +204,6 @@ class WomenProduct extends Component {
               </div>
               <div className="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
                 <div className="row">
-                  {/* <div className="product-item">
-                      <div className="pi-pic">
-                        <div className="tag-sale">ON SALE</div>
-                        <img src="/img/product/6.jpg" alt="" />
-                        <div className="pi-links">
-                          <a href="#" className="add-card">
-                            <i className="flaticon-bag" />
-                            <span>ADD TO CART</span>
-                          </a>
-                          <a href="#" className="wishlist-btn">
-                            <i className="flaticon-heart" />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Black and White Stripes Dress</p>
-                      </div>
-                    </div> */}
                   {listProduct}
                   <div className="text-center w-100 pt-3">
                     {pageNumber < pageTotal && (

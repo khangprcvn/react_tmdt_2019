@@ -81,10 +81,10 @@ class HomeHeader extends React.Component {
                 <Link to="/">Trang chủ</Link>
               </li>
               <li>
-                <Link to="/product/women">Nữ</Link>
+                <Link to="/product/women">Sản phẩm Nữ</Link>
               </li>
               <li>
-                <Link to="/product/men">Nam</Link>
+                <Link to="/product/men">Sản phẩm Nam</Link>
               </li>
               <li>
                 <Link to="#1">

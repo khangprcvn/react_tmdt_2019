@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import 'jquery';
+// import 'jquery';
 import axios from 'axios';
 import Loading from './Loading';
-// import loadjs from 'loadjs';
+import loadjs from 'loadjs';
 class CategoryProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +14,7 @@ class CategoryProduct extends React.Component {
   }
 
   componentDidMount() {
+    loadjs('/js/main.js');
     const name = this.props.match.params.name;
     const url = `/products/category/${name}`;
     axios
@@ -33,34 +34,33 @@ class CategoryProduct extends React.Component {
   }
 
   render() {
-    console.log(this.state.product);
     let listItem;
-    if (!this.state.product) {
-      return listItem = <Loading />;
-    } else {
+    if (this.state.product) {
       listItem = this.state.product.map((pro, index) => {
         return (
           <div
-            class="col-lg-4 col-sm-6"
+            className="col-lg-4 col-sm-4"
             key={index}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             onClick={() => this.handleDetailProduct(pro._id)}
           >
-            <div class="product-item">
-              <div class="pi-pic">
-                {/* <div class="tag-sale">ON SALE</div> */}
-                <img src={pro.logo} alt="" />
-                <div class="pi-links">
-                  <a href="#" class="add-card">
-                    <i class="flaticon-bag" />
+            <div className="product-item">
+              <div className="pi-pic">
+                <img src={pro.logo} alt="" style={{ marginTop: '20px' }} />
+                <div
+                  className="pi-links"
+                  // onClick={() => this.props.addProduct(product)}
+                >
+                  <Link to="/product/women" className="add-card">
+                    <i className="flaticon-bag" />
                     <span>ADD TO CART</span>
-                  </a>
-                  <a href="#" class="wishlist-btn">
-                    <i class="flaticon-heart" />
-                  </a>
+                  </Link>
+                  <Link to="#" className="wishlist-btn">
+                    <i className="flaticon-heart" />
+                  </Link>
                 </div>
               </div>
-              <div class="pi-text">
+              <div className="pi-text">
                 <h6>{pro.price / 1000}.000đ</h6>
                 <Link
                   to={{
@@ -74,21 +74,23 @@ class CategoryProduct extends React.Component {
           </div>
         );
       });
+    } else {
+      listItem = <Loading />;
     }
     return (
       <div>
         <div className="page-top-info">
           <div className="container">
-            <h4>Thể loại</h4>
+            <h4>Category Page</h4>
             <div className="site-pagination">
-              <a href="">Home</a> /<a href="">Category</a>
+              <a href="">Home</a> /<a href="">Women</a>
             </div>
           </div>
         </div>
-        <section class="category-section spad">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-3 order-2 order-lg-1">
+        <section className="category-section spad">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3 order-2 order-lg-1">
                 <div className="filter-widget">
                   <h2 className="fw-title">Categories</h2>
                   <ul className="category-menu">
@@ -96,23 +98,27 @@ class CategoryProduct extends React.Component {
                       <a href="#">Chăm sóc da mặt</a>
                       <ul class="sub-menu">
                         <li>
-                          <a href="#">Dưỡng ẩm</a>
+                          <a href="/product/category/duong am">Dưỡng ẩm</a>
                         </li>
                         <li>
-                          <a href="#">Dưỡng trắng</a>
+                          <a href="/product/category/duong trang">
+                            Dưỡng trắng
+                          </a>
                         </li>
                         <li>
-                          <a href="#">Mặt nạ</a>
+                          <a href="/product/category/mat na">Mặt nạ</a>
                         </li>
                         <li>
-                          <a href="#">Chống nắng</a>
-                        </li>
                         <li>
+                          <a href="/product/category/chong nang">Chống nắng</a>
+                        </li>
+                        </li>
+                        {/* <li>
                           <a href="#">Trị mụn</a>
                         </li>
                         <li>
                           <a href="#">Xịt khoáng</a>
-                        </li>
+                        </li> */}
                       </ul>
                     </li>
                     <li>
@@ -128,12 +134,36 @@ class CategoryProduct extends React.Component {
                     </li>
                   </ul>
                 </div>
+                <div className="filter-widget">
+                  <h2 className="fw-title">Brand</h2>
+                  <ul className="category-menu">
+                    <li>
+                      <Link to="/product/brand/sakura">Sakura</Link>
+                    </li>
+                    <li>
+                      <Link to="/product/brand/sakura">Paula</Link>
+                    </li>
+                    <li>
+                      <Link to="/product/brand/clinque">Clinque</Link>
+                    </li>
+                    <li>
+                      <Link to="/product/brand/neoStrata">NeoStrata</Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div class="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
-                <div class="row">
+              <div className="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
+                <div className="row">
                   {listItem}
-                  {/* <div class="text-center w-100 pt-3">
-                    <button class="site-btn sb-line sb-dark">LOAD MORE</button>
+                  {/* <div className="text-center w-100 pt-3">
+                    {pageNumber < pageTotal && (
+                      <button
+                        className="site-btn sb-line sb-dark"
+                        onClick={() => this.handleLoadPage(pageNumber + 1)}
+                      >
+                        Xem thêm
+                      </button>
+                    )}
                   </div> */}
                 </div>
               </div>
