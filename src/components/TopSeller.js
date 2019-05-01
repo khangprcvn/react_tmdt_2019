@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getSellerProduct } from '../redux/product';
 class TopSeller extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this.props.getSellerProduct();
   }
@@ -12,13 +16,13 @@ class TopSeller extends React.Component {
     if (this.props.sellerProduct !== undefined) {
       sellerProduct = this.props.sellerProduct;
       item = sellerProduct.map(product => (
-        <div className="col-lg-3 col-sm-6" key={product._id}>
+        <div
+          className="col-lg-3 col-sm-6"
+          key={product._id}
+        >
           <div className="product-item">
             <div className="pi-pic">
-              <img
-                src={product.logo}
-                alt=""
-              />
+              <img src={product.logo} alt="" />
               <div className="pi-links">
                 <a href="#" className="add-card">
                   <i className="flaticon-bag" />
@@ -30,7 +34,7 @@ class TopSeller extends React.Component {
               </div>
             </div>
             <div className="pi-text">
-              <h6>{product.price/1000}.000đ</h6>
+              <h6>{product.price / 1000}.000đ</h6>
               <Link
                 to={{
                   pathname: `/product/detail/${product._id}`

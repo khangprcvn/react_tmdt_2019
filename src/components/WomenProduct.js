@@ -5,11 +5,57 @@ import { Link } from 'react-router-dom';
 import { addProduct } from '../redux/cart';
 import Loading from './Loading';
 import loadjs from 'loadjs';
+import '../js/bootstrap-notify.min.js';
 class WomenProduct extends Component {
   constructor(props) {
     super(props);
     this.handleDetailProduct = this.handleDetailProduct.bind(this);
     this.handleLoadPage = this.handleLoadPage.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.addToFavorite = this.addToFavorite.bind(this);
+  }
+
+  addToCart(product) {
+    $.notify(
+      {
+        message: 'Đã thêm sản phẩm vào giỏ hàng'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
+    this.props.addProduct(product);
+  }
+
+  addToFavorite() {
+    $.notify(
+      {
+        message: 'Thông cảm, chức năng đang được hoàn thiện'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
   }
 
   handleDetailProduct(id) {
@@ -24,36 +70,6 @@ class WomenProduct extends Component {
   handleLoadPage(pageNumber) {
     this.props.loadMoreProduct(6, pageNumber, null, null);
   }
-
-  // componentDidMount() {
-  //   // console.log(pageSize, pageNumber);
-  //   this.props.getWomenProduct(6, 1);
-  // }
-  // componentWillReceiveProps(nextProps) {
-  //   // console.log(nextProps);
-  //   if (nextProps.newProduct !== this.props.newProduct) {
-  //     this.addCartProduct(nextProps.newProduct);
-  //   }
-  // }
-  // addCartProduct = product => {
-  //   const productCart = this.props.productCart;
-  //   let productAlreadyInCart = false;
-  //   productCart.forEach(pc => {
-  //     if (pc._id === product._id) {
-  //       pc.quantity += product.quantity;
-  //       productAlreadyInCart = true;
-  //     }
-  //   });
-
-  //   if (!productAlreadyInCart) {
-  //     productCart.push(product);
-  //   }
-  // };
-
-  // onPageChangeHandle(event, page) {
-  //   const pageNumber = page.activePage;
-  //   this.props.womenProduct(15, pageNumber);
-  // }
 
   render() {
     let list = [],
@@ -72,20 +88,31 @@ class WomenProduct extends Component {
             className="col-lg-4 col-sm-4"
             key={index}
             style={{ cursor: 'pointer' }}
-            onClick={() => this.handleDetailProduct(product._id)}
           >
             <div className="product-item">
               <div className="pi-pic">
-                <img src={product.logo} alt="" style={{ marginTop: '20px' }} />
+                <img
+                  src={product.logo}
+                  alt=""
+                  style={{ marginTop: '20px' }}
+                  onClick={() => this.handleDetailProduct(product._id)}
+                />
                 <div
                   className="pi-links"
-                  // onClick={() => this.props.addProduct(product)}
                 >
-                  <Link to="/product/women" className="add-card">
+                  <Link
+                    to="/product/women"
+                    className="add-card"
+                    onClick={() => this.addToCart(product)}
+                  >
                     <i className="flaticon-bag" />
                     <span>ADD TO CART</span>
                   </Link>
-                  <Link to="#" className="wishlist-btn">
+                  <Link
+                    to="/product/women"
+                    className="wishlist-btn"
+                    onClick={this.addToFavorite}
+                  >
                     <i className="flaticon-heart" />
                   </Link>
                 </div>
@@ -159,7 +186,8 @@ class WomenProduct extends Component {
                           <Link
                             to={{
                               pathname: `/product/category/chong nang`
-                            }} >
+                            }}
+                          >
                             Chống nắng
                           </Link>
                         </li>
@@ -227,7 +255,7 @@ class WomenProduct extends Component {
 
 const mapStateToProps = state => ({
   product: state.product,
-  // productCart: state.cart.productCart,
+  productCart: state.cart.productCart,
   newProduct: state.cart.productToAdd
 });
 
@@ -238,5 +266,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProductPage, loadMoreProduct }
+  { getProductPage, loadMoreProduct, addProduct }
 )(WomenProduct);

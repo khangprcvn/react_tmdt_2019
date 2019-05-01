@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addProduct } from '../redux/cart';
 import axios from 'axios';
 import Loading from './Loading';
+import '../js/bootstrap-notify.min.js';
 class BrandProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +12,8 @@ class BrandProduct extends React.Component {
       product: []
     };
     this.handleDetailProduct = this.handleDetailProduct.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.addToFavorite = this.addToFavorite.bind(this);
   }
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -24,6 +29,50 @@ class BrandProduct extends React.Component {
         console.log(err);
       });
   }
+
+  addToCart(product) {
+    $.notify(
+      {
+        message: 'Đã thêm sản phẩm vào giỏ hàng'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
+    this.props.addProduct(product);
+  }
+
+  addToFavorite() {
+    $.notify(
+      {
+        message: 'Thông cảm, chức năng đang được hoàn thiện'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
+  }
+
   handleDetailProduct(id) {
     this.props.history.push(`/product/detail/${id}`);
   }
@@ -37,20 +86,29 @@ class BrandProduct extends React.Component {
             className="col-lg-4 col-sm-4"
             key={index}
             style={{ cursor: 'pointer' }}
-            onClick={() => this.handleDetailProduct(pro._id)}
           >
             <div className="product-item">
               <div className="pi-pic">
-                <img src={pro.logo} alt="" style={{ marginTop: '20px' }} />
-                <div
-                  className="pi-links"
-                  // onClick={() => this.props.addProduct(product)}
-                >
-                  <Link to="/product/women" className="add-card">
+                <img
+                  src={pro.logo}
+                  alt=""
+                  style={{ marginTop: '20px' }}
+                  onClick={() => this.handleDetailProduct(pro._id)}
+                />
+                <div className="pi-links">
+                  <Link
+                    to={`/product/brand/${pro.brand}`}
+                    className="add-card"
+                    onClick={() => this.addToCart(pro)}
+                  >
                     <i className="flaticon-bag" />
                     <span>ADD TO CART</span>
                   </Link>
-                  <Link to="#" className="wishlist-btn">
+                  <Link
+                    to={`/product/brand/${pro.brand}`}
+                    className="wishlist-btn"
+                    onClick={this.addToFavorite}
+                  >
                     <i className="flaticon-heart" />
                   </Link>
                 </div>
@@ -120,4 +178,14 @@ class BrandProduct extends React.Component {
   }
 }
 
-export default BrandProduct;
+const mapStateToProps = state => ({
+  product: state.product,
+  productCart: state.cart.productCart,
+  newProduct: state.cart.productToAdd
+});
+
+export default connect(
+  mapStateToProps,
+  { addProduct }
+)(BrandProduct);
+

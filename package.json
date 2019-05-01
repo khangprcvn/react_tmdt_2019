@@ -74,6 +74,7 @@
     "react-router-dom": "4.3.1",
     "react-swipeable-views": "0.12.15",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2"
   }
 }

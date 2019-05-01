@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import swal from 'sweetalert';
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
-    this.onHandleClick = this.onHandleClick.bind(this);
+    this.onHandleSubmit = this.onHandleSubmit.bind(this);
   }
 
-  onHandleClick() {
-    if(confirm('OK?')) {
-      localStorage.clear()
+  onHandleSubmit() {
+    if (confirm('Bạn muốn hoàn tất đơn hàng')) {
+      localStorage.clear();
+      swal("Cảm ơn bạn!", "Đơn hàng đã hoàn tất", "success");
       this.props.history.push('/');
     } else {
       return;
@@ -25,7 +27,7 @@ class Checkout extends React.Component {
         <ul className="product-list" key={index}>
           <li>
             <div className="pl-thumb">
-              <img src={product.picture.dataPicture} alt="" />
+              <img src={product.logo} alt="" />
             </div>
             <h6>{product.name}</h6>
             <p>
@@ -49,38 +51,33 @@ class Checkout extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-8 order-2 order-lg-1">
-                <form className="checkout-form">
-                  <div className="cf-title">Billing Address</div>
-                  <div className="row">
-                    <div className="col-md-7">
-                      <p>*Billing Information</p>
-                    </div>
-                    <div className="col-md-5">
-                      <div className="cf-radio-btns address-rb">
-                        <div className="cfr-item">
-                          <input type="radio" name="pm" id="one" />
-                          <label for="one">Use my regular address</label>
-                        </div>
-                        <div className="cfr-item">
-                          <input type="radio" name="pm" id="two" />
-                          <label for="two">Use a different address</label>
-                        </div>
-                      </div>
-                    </div>
+                <form className="checkout-form" onSubmit={this.onHandleSubmit}>
+                  <div className="cf-title">
+                    Vui lòng điền đầy đủ thông tin của bạn. Chúng tôi sẽ không
+                    spam email của bạn
                   </div>
                   <div className="row address-inputs">
                     <div className="col-md-12">
-                      <input type="text" placeholder="Fullname" />
-                      <input type="text" placeholder="Address " />
+                      <input type="text" placeholder="Fullname" required />
+                      <input type="text" placeholder="Address " required />
                     </div>
                     <div className="col-md-6">
-                      <input type="text" placeholder="Email" />
+                      <input type="email" placeholder="Email" required />
                     </div>
                     <div className="col-md-6">
-                      <input type="text" placeholder="Phone" />
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Phone example: 0385584056"
+                        pattern="[0][1-9][0-9]*"
+                        minLength="10"
+                        maxLength="12"
+                        required
+                      />
                     </div>
                   </div>
-                  <button onClick={() => this.onHandleClick()} className="site-btn submit-order-btn">Submit</button>
+                  <button className="site-btn submit-order-btn">Submit</button>
                 </form>
               </div>
               <div className="col-lg-4 order-1 order-lg-2">

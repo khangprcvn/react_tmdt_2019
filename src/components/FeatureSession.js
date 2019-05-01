@@ -1,62 +1,35 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 export default class FeatureSection extends React.Component {
   render() {
     return (
       <div>
         <section className="hero-section">
           <div className="hero-slider owl-carousel">
-            <div className="hs-item set-bg" data-setbg="/img/bg.jpg">
+            <div className="hs-item set-bg" data-setbg="/img/bg-6.jpg">
               <div className="container">
                 <div className="row">
                   <div className="col-xl-6 col-lg-7 text-white">
-                    <span>New Product</span>
-                    <h2>New Beauty</h2>
-                    {/* <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Quis ipsum sus-pendisse ultrices gravida. Risus
-                      commodo viverra maecenas accumsan lacus vel facilisis.{' '}
-                    </p> */}
-                    <Link to="#" className="site-btn sb-line">
-                      DISCOVER
-                    </Link>
-                    <Link to="#" className="site-btn sb-white">
-                      ADD TO CART
-                    </Link>
+                    <span style={{ color: '#FF4040' }}>New Product</span>
+                    <h2 style={{ color: '#FF4040' }}>New Beauty</h2>
                   </div>
                 </div>
                 <div className="offer-card text-white">
-                  <span>from</span>
-                  <h2>99K</h2>
-                  <p>SHOP NOW</p>
+                  <span>FROM</span>
+                  <h2>199K</h2> 
                 </div>
               </div>
             </div>
-            <div className="hs-item set-bg" data-setbg="/img/bg-2.jpg">
+            <div className="hs-item set-bg" data-setbg="/img/bg-4.jpg">
               <div className="container">
                 <div className="row">
                   <div className="col-xl-6 col-lg-7 text-white">
-                    <span>New Product</span>
-                    <h2>New Beauty</h2>
-                    {/* <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Quis ipsum sus-pendisse ultrices gravida. Risus
-                      commodo viverra maecenas accumsan lacus vel facilisis.{' '}
-                    </p> */}
-                    <Link to="#" className="site-btn sb-line">
-                      DISCOVER
-                    </Link>
-                    <Link to="#" className="site-btn sb-white">
-                      ADD TO CART
-                    </Link>
+                    <span style={{ color: '#FF4040' }}>New Product</span>
+                    <h2 style={{ color: '#FF4040' }}>New Beauty</h2>
                   </div>
                 </div>
                 <div className="offer-card text-white">
-                  <span>from</span>
+                  <span>FROM</span>
                   <h2>99K</h2>
-                  <p>SHOP NOW</p>
                 </div>
               </div>
             </div>

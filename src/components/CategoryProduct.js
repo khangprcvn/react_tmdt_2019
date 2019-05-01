@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import 'jquery';
+import { addProduct } from '../redux/cart';
 import axios from 'axios';
 import Loading from './Loading';
 import loadjs from 'loadjs';
+import '../js/bootstrap-notify.min.js';
 class CategoryProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +13,8 @@ class CategoryProduct extends React.Component {
       product: []
     };
     this.handleDetailProduct = this.handleDetailProduct.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.addToFavorite = this.addToFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +33,49 @@ class CategoryProduct extends React.Component {
       });
   }
 
+  addToCart(product) {
+    $.notify(
+      {
+        message: 'Đã thêm sản phẩm vào giỏ hàng'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
+    this.props.addProduct(product);
+  }
+
+  addToFavorite() {
+    $.notify(
+      {
+        message: 'Thông cảm, chức năng đang được hoàn thiện'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
+  }
+
   handleDetailProduct(id) {
     this.props.history.push(`/product/detail/${id}`);
   }
@@ -42,20 +89,31 @@ class CategoryProduct extends React.Component {
             className="col-lg-4 col-sm-4"
             key={index}
             style={{ cursor: 'pointer' }}
-            onClick={() => this.handleDetailProduct(pro._id)}
           >
             <div className="product-item">
               <div className="pi-pic">
-                <img src={pro.logo} alt="" style={{ marginTop: '20px' }} />
+                <img
+                  src={pro.logo}
+                  alt=""
+                  style={{ marginTop: '20px' }}
+                  onClick={() => this.handleDetailProduct(pro._id)}
+                />
                 <div
                   className="pi-links"
-                  // onClick={() => this.props.addProduct(product)}
                 >
-                  <Link to="/product/women" className="add-card">
+                  <Link
+                    to={`/product/category/${pro.category}`}
+                    className="add-card"
+                    onClick={() => this.addToCart(pro)}
+                  >
                     <i className="flaticon-bag" />
                     <span>ADD TO CART</span>
                   </Link>
-                  <Link to="#" className="wishlist-btn">
+                  <Link
+                    to={`/product/category/${pro.category}`}
+                    className="wishlist-btn"
+                    onClick={() => this.addToFavorite}
+                  >
                     <i className="flaticon-heart" />
                   </Link>
                 </div>
@@ -109,9 +167,11 @@ class CategoryProduct extends React.Component {
                           <a href="/product/category/mat na">Mặt nạ</a>
                         </li>
                         <li>
-                        <li>
-                          <a href="/product/category/chong nang">Chống nắng</a>
-                        </li>
+                          <li>
+                            <a href="/product/category/chong nang">
+                              Chống nắng
+                            </a>
+                          </li>
                         </li>
                         {/* <li>
                           <a href="#">Trị mụn</a>
@@ -175,4 +235,13 @@ class CategoryProduct extends React.Component {
   }
 }
 
-export default CategoryProduct;
+const mapStateToProps = state => ({
+  product: state.product,
+  productCart: state.cart.productCart,
+  newProduct: state.cart.productToAdd
+});
+
+export default connect(
+  mapStateToProps,
+  { addProduct }
+)(CategoryProduct);

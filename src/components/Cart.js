@@ -2,32 +2,48 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeQuantity, removeProduct } from '../redux/cart';
+import '../js/bootstrap-notify.min.js';
 class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      changeProduct: []
+      changeProduct: [],
     };
     this.onChangeQuantity = this.onChangeQuantity.bind(this);
     this.onChangRemove = this.onChangRemove.bind(this);
   }
-  onChangeQuantity(index) {
-    let value = $('#quantity').val();
-    let newQuantity = parseInt(value);
+  onChangeQuantity(index, newQuantity) {
+    newQuantity = parseInt(newQuantity);
     const change = {
       index,
       newQuantity
     };
     this.props.changeQuantity(change);
-    // console.log(index);
   }
 
   onChangRemove(index) {
+    $.notify(
+      {
+        message: 'Sản phẩm đã được xóa khỏi giỏ hàng của bạn'
+      },
+      {
+        type: 'warning',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
     this.props.removeProduct(index);
   }
 
   render() {
-    console.log('cart', this.props.productCart.productCart);
     let productCart = this.props.productCart.productCart;
     let totalProduct = 0;
     productCart.map(product => {
@@ -36,7 +52,7 @@ class Cart extends Component {
     const cart = productCart.map((product, index) => (
       <tr key={index}>
         <td className="product-col">
-          <img src={product.picture.dataPicture} alt="" />
+          <img src={product.logo} alt="" />
           <div className="pc-title">
             <h4>{product.name}</h4>
             <p>{product.price}</p>
@@ -49,8 +65,9 @@ class Cart extends Component {
                 min="1"
                 id="quantity"
                 type="number"
+                max="10"
                 defaultValue={product.quantity}
-                onChange={() => this.onChangeQuantity(index)}
+                onChange={(e) => this.onChangeQuantity(index, e.target.value)}
               />
             </div>
           </div>

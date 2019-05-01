@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
+import { connect } from 'react-redux';
+import { addProduct } from '../redux/cart';
+import '../js/bootstrap-notify.min.js';
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -10,7 +13,8 @@ class ProductDetail extends React.Component {
         picture: {
           dataPicture: null
         }
-      }
+      },
+      quantity: 1
     };
   }
 
@@ -27,6 +31,38 @@ class ProductDetail extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  updateQuantityChange = e => {
+    this.setState({
+      quantity: e.target.value
+    });
+  };
+
+  addToCart(product) {
+    let newProduct = {
+      ...product,
+      quantity: parseInt(this.state.quantity)
+    };
+    $.notify(
+      {
+        message: 'Đã thêm sản phẩm vào giỏ hàng'
+      },
+      {
+        type: 'info',
+        placement: {
+          from: 'top',
+          align: 'right'
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 1000,
+        timer: 1000,
+        allow_dismiss: false
+      }
+    );
+    this.props.addProduct(newProduct);
   }
 
   render() {
@@ -100,14 +136,17 @@ class ProductDetail extends React.Component {
                       id="quantity"
                       type="number"
                       min="1"
-                      defaultValue="1"
-                      // value={this.state.product.quantity}
+                      max="10"
+                      defaultValue={this.state.quantity}
+                      onChange={this.updateQuantityChange}
                     />
                   </div>
                 </div>
-                <button className="site-btn">
-                  <i class="fa fa-shopping-cart" /> {' '}
-                  Chọn mua
+                <button
+                  className="site-btn"
+                  onClick={() => this.addToCart(this.state.product)}
+                >
+                  <i class="fa fa-shopping-cart" /> Chọn mua
                 </button>
                 <div id="accordion" className="accordion-area">
                   <div className="panel">
@@ -206,4 +245,13 @@ class ProductDetail extends React.Component {
   }
 }
 
-export default ProductDetail;
+const mapStateToProps = state => ({
+  product: state.product,
+  productCart: state.cart.productCart,
+  newProduct: state.cart.productToAdd
+});
+
+export default connect(
+  mapStateToProps,
+  { addProduct }
+)(ProductDetail);

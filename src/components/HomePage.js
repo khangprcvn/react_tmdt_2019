@@ -8,6 +8,9 @@ import 'owl.carousel';
 import loadjs from 'loadjs';
 class HomePage extends React.Component {
   componentDidMount() {
+    loadjs('../js/bootstrap.min.js');
+    loadjs('../js/jquery.nicescroll.min.js');
+    loadjs('../js/jquery.slicknav.min.js');
     loadjs('../js/main.js');
   }
   render() {
@@ -15,7 +18,7 @@ class HomePage extends React.Component {
       <React.Fragment>
         <FeatureSession />
         <HotProduct />
-        <TopSeller />
+        {/* <TopSeller /> */}
       </React.Fragment>
     )
   }

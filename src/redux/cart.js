@@ -32,24 +32,57 @@ const initialState = {
 };
 
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_CART:
-    return {
-      ...state,
-      productCart: action.payload
-    };
-    case ADD_PRODUCT:
       return {
         ...state,
-        // productCart: [
-        //   ...state.productCart,
-        //   {
-        //     ...action.payload
-        //   }
-        // ],
-        productToAdd: Object.assign({}, action.payload)
+        productCart: action.payload
       };
+    case ADD_PRODUCT:
+      if (state.productCart.length === 0) {
+        let newCart = [
+          ...state.productCart,
+          {
+            ...action.payload
+          }
+        ]
+        return {
+          ...state,
+          productCart: newCart,
+          productToAdd: action.payload
+        }
+      } else {
+        let indexProduct = state.productCart.findIndex(product => product._id === action.payload._id);
+        if (indexProduct === -1) {
+          let newCart = [
+            ...state.productCart,
+            {
+              ...action.payload
+            }
+          ]
+          return {
+            ...state,
+            productCart: newCart,
+            productToAdd: action.payload
+          }
+        } else {
+          let productChange = {
+            ...state.productCart[indexProduct],
+            quantity: state.productCart[indexProduct].quantity + action.payload.quantity
+          }
+          let newCart = [
+            ...state.productCart.slice(0, indexProduct),
+            productChange,
+            ...state.productCart.slice(indexProduct + 1, state.productCart.length)
+          ];
+          return {
+            ...state,
+            productCart: newCart,
+            productToAdd: action.payload
+          };
+        }
+      }
     case REMOVE_PRODUCT:
       const newProductCart = state.productCart.filter(product => {
         return product._id !== action.payload;
@@ -58,7 +91,7 @@ export default function(state = initialState, action) {
         ...state,
         productCart: newProductCart
       };
-    case CHANGE_QUANTITY: {
+    case CHANGE_QUANTITY:
       // let productChange = state.productCart[action.playload.index];
       let product = state.productCart;
       let indexChange = action.payload.index;
@@ -76,7 +109,6 @@ export default function(state = initialState, action) {
         ...state,
         productCart: newProduct
       }
-    }
     default:
       return state;
   }
