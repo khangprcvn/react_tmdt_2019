@@ -120,7 +120,7 @@ class Cart extends Component {
                   </div>
                   <div className="total-cost">
                     <h6>
-                      Total <span>{totalProduct}</span>
+                      Tổng tiền <span>{totalProduct}</span>
                     </h6>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ class Cart extends Component {
                 </form>
                 {/* <a href="/product/cart" className="site-btn">Update Cart</a> */}
                 <Link to="/product/checkout" className="site-btn sb-dark">
-                  Continue shopping
+                  Tiếp tục
                 </Link>
               </div>
             </div>

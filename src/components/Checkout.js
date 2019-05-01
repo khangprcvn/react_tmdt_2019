@@ -77,12 +77,12 @@ class Checkout extends React.Component {
                       />
                     </div>
                   </div>
-                  <button className="site-btn submit-order-btn">Submit</button>
+                  <button className="site-btn submit-order-btn">Thanh toán</button>
                 </form>
               </div>
               <div className="col-lg-4 order-1 order-lg-2">
                 <div className="checkout-cart">
-                  <h3>Your Cart</h3>
+                  <h3>Giỏ hàng của bạn</h3>
                   {item}
                   <ul className="price-list">
                     <li>
