@@ -29,7 +29,6 @@ class HotProduct extends React.Component {
   }
 
   addToCart(product) {
-    console.log(product);
     $.notify(
       {
         message: 'Đã thêm sản phẩm vào giỏ hàng'
