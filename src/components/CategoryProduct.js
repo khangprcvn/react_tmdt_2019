@@ -142,7 +142,7 @@ class CategoryProduct extends React.Component {
           <div className="container">
             <h4>Category Page</h4>
             <div className="site-pagination">
-              <a href="">Home</a> /<a href="">Women</a>
+              <a href="">Home</a> /<a href="/product/women">Category</a>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@ class CategoryProduct extends React.Component {
                   <h2 className="fw-title">Categories</h2>
                   <ul className="category-menu">
                     <li>
-                      <a href="#">Chăm sóc da mặt</a>
+                      <a href="/product/category/duong am">Chăm sóc da mặt</a>
                       <ul class="sub-menu">
                         <li>
                           <a href="/product/category/duong am">Dưỡng ẩm</a>
@@ -174,18 +174,18 @@ class CategoryProduct extends React.Component {
                           <a href="/product/category/tri mun">Trị mụn</a>
                         </li>
                         <li>
-                          <a href="/product/category/Xit khoang">Xit khoang</a>
+                          <a href="/product/category/xit khoang">Xịt khoáng</a>
                         </li>
                       </ul>
                     </li>
                     <li>
-                      <a href="#">Chăm sóc cơ thể</a>
+                      <a href="/product/category/sua tam">Chăm sóc cơ thể</a>
                       <ul class="sub-menu">
                         <li>
-                          <a href="#">Sữa tắm</a>
+                          <a href="/product/category/sua tam">Sữa tắm</a>
                         </li>
                         <li>
-                          <a href="#">Dưỡng thể</a>
+                          <a href="/product/category/duong the">Dưỡng thể</a>
                         </li>
                       </ul>
                     </li>

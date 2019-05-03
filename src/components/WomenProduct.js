@@ -91,7 +91,9 @@ class WomenProduct extends Component {
           >
             <div className="product-item">
               <div className="pi-pic">
-              {product.sale > 0 ? <div className="tag-sale"> - {product.sale} %</div> : null}
+                {product.sale > 0 ? (
+                  <div className="tag-sale"> - {product.sale} %</div>
+                ) : null}
                 <img
                   src={product.logo}
                   alt=""
@@ -140,7 +142,7 @@ class WomenProduct extends Component {
           <div className="container">
             <h4>Category Page</h4>
             <div className="site-pagination">
-              <a href="">Home</a> /<a href="">Women</a>
+              <a href="">Home</a> /<a href="/product/women">Women</a>
             </div>
           </div>
         </div>
@@ -152,7 +154,13 @@ class WomenProduct extends Component {
                   <h2 className="fw-title">Categories</h2>
                   <ul className="category-menu">
                     <li>
-                      <a href="#">Chăm sóc da mặt</a>
+                      <Link
+                        to={{
+                          pathname: '/product/category/duong am'
+                        }}
+                      >
+                        Chăm sóc da mặt
+                      </Link>
                       <ul class="sub-menu">
                         <li>
                           <Link
@@ -211,14 +219,22 @@ class WomenProduct extends Component {
                       </ul>
                     </li>
                     <li>
-                      <a href="#">Chăm sóc cơ thể</a>
+                      <Link to= "/product/women">Chăm sóc cơ thể</Link>
                       <ul class="sub-menu">
-                        <li>
-                          <a href="#">Sữa tắm</a>
-                        </li>
-                        <li>
-                          <a href="#">Dưỡng thể</a>
-                        </li>
+                        <Link
+                          to={{
+                            pathname: `/product/category/sua tam`
+                          }}
+                        >
+                          Sữa tắm
+                        </Link>
+                        <Link
+                          to={{
+                            pathname: `/product/category/duong the`
+                          }}
+                        >
+                          Dưỡng thể
+                        </Link>
                       </ul>
                     </li>
                   </ul>
