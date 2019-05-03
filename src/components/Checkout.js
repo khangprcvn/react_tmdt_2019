@@ -33,9 +33,9 @@ class Checkout extends React.Component {
             </div>
             <h6>{product.name}</h6>
             <p>
-              {product.price * product.quantity -
+              {product.price -
                 (product.sale / 100) * product.price}{' '}
-              x {product.quantity}
+              x {product.quantity} sp
             </p>
           </li>
         </ul>

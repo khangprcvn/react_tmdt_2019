@@ -92,16 +92,16 @@ class CategoryProduct extends React.Component {
           >
             <div className="product-item">
               <div className="pi-pic">
-              {pro.sale > 0 ? <div className="tag-sale"> - {pro.sale} %</div> : null}
+                {pro.sale > 0 ? (
+                  <div className="tag-sale"> - {pro.sale} %</div>
+                ) : null}
                 <img
                   src={pro.logo}
                   alt=""
                   style={{ marginTop: '20px' }}
                   onClick={() => this.handleDetailProduct(pro._id)}
                 />
-                <div
-                  className="pi-links"
-                >
+                <div className="pi-links">
                   <Link
                     to={`/product/category/${pro.category}`}
                     className="add-card"
@@ -168,18 +168,14 @@ class CategoryProduct extends React.Component {
                           <a href="/product/category/mat na">Mặt nạ</a>
                         </li>
                         <li>
-                          <li>
-                            <a href="/product/category/chong nang">
-                              Chống nắng
-                            </a>
-                          </li>
-                        </li>
-                        {/* <li>
-                          <a href="#">Trị mụn</a>
+                          <a href="/product/category/chong nang">Chống nắng</a>
                         </li>
                         <li>
-                          <a href="#">Xịt khoáng</a>
-                        </li> */}
+                          <a href="/product/category/tri mun">Trị mụn</a>
+                        </li>
+                        <li>
+                          <a href="/product/category/Xit khoang">Xit khoang</a>
+                        </li>
                       </ul>
                     </li>
                     <li>
