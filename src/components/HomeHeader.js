@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import SearchProduct from './SearchProduct';
 class HomeHeader extends React.Component {
   render() {
     let store = localStorage.getItem('state');
@@ -42,24 +43,9 @@ class HomeHeader extends React.Component {
         <div className="header-top">
           <div className="container">
             <div className="row">
-              {/* <div className="col-lg-2 text-center text-lg-left">
-                  <img src="/img/logo.png" alt="" />
-              </div> */}
-              <div className="col-xl-6 col-lg-5">
-                <form className="header-search-form">
-                  <input type="text" placeholder="Search on ..." />
-                  <button>
-                    <i className="flaticon-search" />
-                  </button>
-                </form>
-              </div>
+              <SearchProduct />
               <div className="col-xl-4 col-lg-5">
                 <div className="user-panel">
-                  {/* <div className="up-item">
-                    <i className="flaticon-profile" />
-                    <Link to="/login">Log In </Link> or{' '}
-                    <Link to="/signup">Create Account</Link>
-                  </div> */}
                   {hiUser}
                   <div className="up-item" style={{ paddingTop: '10px' }}>
                     <div className="shopping-card">

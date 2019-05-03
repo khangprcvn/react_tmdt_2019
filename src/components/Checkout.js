@@ -45,9 +45,9 @@ class Checkout extends React.Component {
       <div>
         <div className="page-top-info">
           <div className="container">
-            <h4>Category Page</h4>
+            <h4>Checkout Page</h4>
             <div className="site-pagination">
-              <a href="">Home</a> /<a href="">Women</a>
+              <a href="">Home</a> /<a href="">Checkout</a>
             </div>
           </div>
         </div>
@@ -62,8 +62,8 @@ class Checkout extends React.Component {
                   </div>
                   <div className="row address-inputs">
                     <div className="col-md-12">
-                      <input type="text" placeholder="Fullname" required />
-                      <input type="text" placeholder="Address " required />
+                      <input type="text" placeholder="Họ và tên" required />
+                      <input type="text" placeholder="Địa chỉ" required />
                     </div>
                     <div className="col-md-6">
                       <input type="email" placeholder="Email" required />
