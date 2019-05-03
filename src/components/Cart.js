@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeQuantity, removeProduct } from '../redux/cart';
 import '../js/bootstrap-notify.min.js';
@@ -7,7 +7,7 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      changeProduct: [],
+      changeProduct: []
     };
     this.onChangeQuantity = this.onChangeQuantity.bind(this);
     this.onChangRemove = this.onChangRemove.bind(this);
@@ -47,7 +47,9 @@ class Cart extends Component {
     let productCart = this.props.productCart.productCart;
     let totalProduct = 0;
     productCart.map(product => {
-      totalProduct += product.price * product.quantity;
+      totalProduct +=
+        product.price * product.quantity -
+        (product.sale / 100) * product.price * product.quantity;
     });
     const cart = productCart.map((product, index) => (
       <tr key={index}>
@@ -67,7 +69,7 @@ class Cart extends Component {
                 type="number"
                 max="10"
                 defaultValue={product.quantity}
-                onChange={(e) => this.onChangeQuantity(index, e.target.value)}
+                onChange={e => this.onChangeQuantity(index, e.target.value)}
               />
             </div>
           </div>
@@ -75,8 +77,14 @@ class Cart extends Component {
         <td className="size-col">
           <h4>{product.brand}</h4>
         </td>
+        <td className="size-col">
+          <h4>{product.sale}%</h4>
+        </td>
         <td className="total-col">
-          <h4>{product.price * product.quantity}</h4>
+          <h4>
+            {product.price * product.quantity -
+              (product.sale / 100) * product.price}
+          </h4>
         </td>
         <td className="size-col">
           <i
@@ -108,10 +116,11 @@ class Cart extends Component {
                     <table>
                       <thead>
                         <tr>
-                          <th className="product-th">Product</th>
-                          <th className="quy-th">Quantity</th>
-                          <th className="size-th">Brand</th>
-                          <th className="total-th">Price</th>
+                          <th className="product-th">Sản phẩm</th>
+                          <th className="quy-th">Số lượng</th>
+                          <th className="size-th">Thương hiệu</th>
+                          <th className="size-th">Khuyến mãi</th>
+                          <th className="total-th">Giá (On Sale)</th>
                           <th className="total-th" />
                         </tr>
                       </thead>

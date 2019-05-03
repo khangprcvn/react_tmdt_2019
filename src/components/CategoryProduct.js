@@ -92,6 +92,7 @@ class CategoryProduct extends React.Component {
           >
             <div className="product-item">
               <div className="pi-pic">
+              {pro.sale > 0 ? <div className="tag-sale"> - {pro.sale} %</div> : null}
                 <img
                   src={pro.logo}
                   alt=""

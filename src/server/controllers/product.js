@@ -13,6 +13,7 @@ module.exports = {
   addProduct: (req, res) => {
     const name = req.body.name;
     const price = req.body.price;
+    const sale = req.body.sale;
     const amount = req.body.amount;
     const quantity = 1;
     const information = req.body.information;
@@ -24,6 +25,7 @@ module.exports = {
     Product.create({
       name,
       price,
+      sale,
       amount,
       quantity,
       information,
@@ -86,7 +88,9 @@ module.exports = {
 
   getCategoryProduct: (req, res) => {
     const category = req.params.name;
-    Product.find({category}).then(result => {
+    Product.find({
+      category
+    }).then(result => {
       res.send(result)
     }).catch(error => {
       console.log(error)
@@ -95,10 +99,25 @@ module.exports = {
 
   getBrandProduct: (req, res) => {
     const brand = req.params.id;
-    Product.find({brand}).then(result => {
+    Product.find({
+      brand
+    }).then(result => {
+      res.send(result)
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+
+  getSaleProduct: (req, res) => {
+    Product.find({
+      sale: {
+        $gt: 0
+      }
+    }).then(result => {
       res.send(result)
     }).catch(error => {
       console.log(error)
     })
   }
+
 }

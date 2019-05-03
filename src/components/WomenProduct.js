@@ -91,15 +91,14 @@ class WomenProduct extends Component {
           >
             <div className="product-item">
               <div className="pi-pic">
+              {product.sale > 0 ? <div className="tag-sale"> - {product.sale} %</div> : null}
                 <img
                   src={product.logo}
                   alt=""
                   style={{ marginTop: '20px' }}
                   onClick={() => this.handleDetailProduct(product._id)}
                 />
-                <div
-                  className="pi-links"
-                >
+                <div className="pi-links">
                   <Link
                     to="/product/women"
                     className="add-card"
@@ -192,10 +191,22 @@ class WomenProduct extends Component {
                           </Link>
                         </li>
                         <li>
-                          <a href="#">Trị mụn</a>
+                          <Link
+                            to={{
+                              pathname: `/product/category/tri mun`
+                            }}
+                          >
+                            Trị mụn
+                          </Link>
                         </li>
                         <li>
-                          <a href="#">Xịt khoáng</a>
+                          <Link
+                            to={{
+                              pathname: `/product/category/xit khoang`
+                            }}
+                          >
+                            Xịt khoáng
+                          </Link>
                         </li>
                       </ul>
                     </li>
@@ -219,7 +230,7 @@ class WomenProduct extends Component {
                       <Link to="/product/brand/sakura">Sakura</Link>
                     </li>
                     <li>
-                      <Link to="/product/brand/sakura">Paula</Link>
+                      <Link to="/product/brand/paula">Paula</Link>
                     </li>
                     <li>
                       <Link to="/product/brand/clinque">Clinque</Link>

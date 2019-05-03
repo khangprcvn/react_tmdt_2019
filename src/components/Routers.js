@@ -14,7 +14,8 @@ const HomePage = Loadable({loading: Loading, loader: () => import('./HomePage')}
   CartPage = Loadable({ loading: Loading, loader: () => import('./Cart')}),
   CheckoutPage = Loadable({ loading: Loading, loader: () => import('./Checkout')}),
   ProductDetailPage = Loadable({ loading: Loading, loader: () => import('./ProductDetail')}),
-  CategoryProduct = Loadable({ loading: Loading, loader: () => import('./CategoryProduct')});
+  CategoryProduct = Loadable({ loading: Loading, loader: () => import('./CategoryProduct')}),
+  SaleProduct = Loadable({ loading: Loading, loader: () => import('./SaleProduct')});
 
 
 const routes = [
@@ -28,6 +29,7 @@ const routes = [
   { view: 'user', path: '/product/checkout', component: CheckoutPage, exact: true},
   { view: 'user', path: '/product/detail/:id', component: ProductDetailPage, exact: true},
   { view: 'user', path: '/product/men', component: WomenProduct, exact: true},
+  { view: 'user', path: '/product/sale', component: SaleProduct, exact: true},
 
   
   { view: 'admin', path: '/admin', component: AdminPage, exact: true },

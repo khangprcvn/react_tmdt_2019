@@ -80,6 +80,7 @@ class HotProduct extends React.Component {
         <div className="col-lg-3 col-sm-6" key={product._id}>
           <div className="product-item">
             <div className="pi-pic">
+              {product.sale > 0 ? <div className="tag-sale"> - {product.sale} %</div> : null}
               <img src={product.logo} alt="" />
               <div className="pi-links">
                 <Link

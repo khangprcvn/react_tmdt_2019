@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { addProduct } from '../redux/cart';
 import axios from 'axios';
 import Loading from './Loading';
+import loadjs from 'loadjs';
 import '../js/bootstrap-notify.min.js';
-class BrandProduct extends React.Component {
+class SaleProduct extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,9 +16,10 @@ class BrandProduct extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.addToFavorite = this.addToFavorite.bind(this);
   }
+
   componentDidMount() {
-    const id = this.props.match.params.id;
-    const url = `/products/brand/${id}`;
+    loadjs('/js/main.js');
+    const url = '/products/list/product-sale';
     axios
       .get(url, {})
       .then(result => {
@@ -76,8 +78,8 @@ class BrandProduct extends React.Component {
   handleDetailProduct(id) {
     this.props.history.push(`/product/detail/${id}`);
   }
+
   render() {
-    // console.log(this.state.product);
     let listItem;
     if (this.state.product) {
       listItem = this.state.product.map((pro, index) => {
@@ -89,7 +91,9 @@ class BrandProduct extends React.Component {
           >
             <div className="product-item">
               <div className="pi-pic">
-                {pro.sale > 0 ? <div className="tag-sale"> - {pro.sale} %</div> : null}
+                {pro.sale > 0 ? (
+                  <div className="tag-sale"> - {pro.sale} %</div>
+                ) : null}
                 <img
                   src={pro.logo}
                   alt=""
@@ -98,7 +102,7 @@ class BrandProduct extends React.Component {
                 />
                 <div className="pi-links">
                   <Link
-                    to={`/product/brand/${pro.brand}`}
+                    to="/product/sale"
                     className="add-card"
                     onClick={() => this.addToCart(pro)}
                   >
@@ -106,9 +110,9 @@ class BrandProduct extends React.Component {
                     <span>ADD TO CART</span>
                   </Link>
                   <Link
-                    to={`/product/brand/${pro.brand}`}
+                    to="/product/sale"
                     className="wishlist-btn"
-                    onClick={this.addToFavorite}
+                    onClick={() => this.addToFavorite}
                   >
                     <i className="flaticon-heart" />
                   </Link>
@@ -135,39 +139,87 @@ class BrandProduct extends React.Component {
       <div>
         <div className="page-top-info">
           <div className="container">
-            <h4>Brand Page</h4>
+            <h4>Category Page</h4>
             <div className="site-pagination">
-              <a href="">Home</a> /<a href="">Brand</a>
+              <a href="">Home</a> /<a href="">Women</a>
             </div>
           </div>
         </div>
-        <section class="category-section spad">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-3 order-2 order-lg-1">
-                <div class="filter-widget">
-                  <h2 class="fw-title">Brand</h2>
-                  <ul class="category-menu">
+        <section className="category-section spad">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3 order-2 order-lg-1">
+                <div className="filter-widget">
+                  <h2 className="fw-title">Categories</h2>
+                  <ul className="category-menu">
                     <li>
-                      <a href="/product/brand/sakura">Sakura</a>
+                      <a href="#">Chăm sóc da mặt</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="/product/category/duong am">Dưỡng ẩm</a>
+                        </li>
+                        <li>
+                          <a href="/product/category/duong trang">
+                            Dưỡng trắng
+                          </a>
+                        </li>
+                        <li>
+                          <a href="/product/category/mat na">Mặt nạ</a>
+                        </li>
+                        <li>
+                          <a href="/product/category/chong nang">Chống nắng</a>
+                        </li>
+                        <li>
+                          <a href="/product/category/tri mun">Trị mụn</a>
+                        </li>
+                        <li>
+                          <a href="/product/category/xit khoang">Xịt khoáng</a>
+                        </li>
+                      </ul>
                     </li>
                     <li>
-                      <a href="/product/brand/paula">Paula</a>
+                      <a href="#">Chăm sóc cơ thể</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="#">Sữa tắm</a>
+                        </li>
+                        <li>
+                          <a href="#">Dưỡng thể</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div className="filter-widget">
+                  <h2 className="fw-title">Brand</h2>
+                  <ul className="category-menu">
+                    <li>
+                      <Link to="/product/brand/sakura">Sakura</Link>
                     </li>
                     <li>
-                      <a href="/product/brand/clinque">Clinque</a>
+                      <Link to="/product/brand/sakura">Paula</Link>
                     </li>
                     <li>
-                      <a href="/product/brand/neostrata">Neostrata</a>
+                      <Link to="/product/brand/clinque">Clinque</Link>
+                    </li>
+                    <li>
+                      <Link to="/product/brand/neoStrata">NeoStrata</Link>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
-                <div class="row">
+              <div className="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
+                <div className="row">
                   {listItem}
-                  {/* <div class="text-center w-100 pt-3">
-                    <button class="site-btn sb-line sb-dark">LOAD MORE</button>
+                  {/* <div className="text-center w-100 pt-3">
+                    {pageNumber < pageTotal && (
+                      <button
+                        className="site-btn sb-line sb-dark"
+                        onClick={() => this.handleLoadPage(pageNumber + 1)}
+                      >
+                        Xem thêm
+                      </button>
+                    )}
                   </div> */}
                 </div>
               </div>
@@ -188,5 +240,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addProduct }
-)(BrandProduct);
-
+)(SaleProduct);

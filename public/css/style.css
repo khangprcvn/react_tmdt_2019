@@ -842,22 +842,24 @@ ol {
 	position: absolute;
 	right: 16px;
 	top: 14px;
-	font-size: 10px;
+	font-size: 14px;
 	font-weight: 700;
 	color: #fff;
-	background: #50e550;
+	background: #FF4040;
 	line-height: 1;
 	text-transform: uppercase;
-	padding: 5px 9px 1px;
+	padding: 7px 7px 7px;
+	margin-top: 5px;
 	border-radius: 15px;
 	width: 42px;
 }
 
 .product-item .tag-sale {
 	text-align: center;
-	padding: 5px 0px 1px;
+	margin-top: 15px;
+	padding: 8px 8px 8px 8px;
 	min-width: 65px;
-	background: #f51167;
+	background: #FF4040;
 }
 
 .product-item .pi-links {
@@ -1779,9 +1781,9 @@ ol {
 }
 
 .cart-table table tr th {
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 400;
-	color: #414141;
+	color: #9C4E4E;
 	text-align: center;
 	padding-bottom: 25px;
 }
@@ -1807,6 +1809,7 @@ ol {
 	display: table-cell;
 	vertical-align: middle;
 	float: left;
+	/* height: 73px; */
 	width: 73px;
 }
 
@@ -1867,7 +1870,7 @@ ol {
 }
 
 .cart-table .total-cost {
-	background: #f51167;
+	background: #9C4E4E;
 	margin: 0 -34px;
 	text-align: right;
 	padding: 22px 0;
@@ -1878,7 +1881,7 @@ ol {
 	line-height: 1;
 	font-size: 18px;
 	font-weight: 700;
-	color: #fff;
+	color: white;
 }
 
 .cart-table .total-cost h6 span {

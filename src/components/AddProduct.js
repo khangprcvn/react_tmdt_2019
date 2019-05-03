@@ -15,6 +15,7 @@ class AddProduct extends Component {
         brand: 'Sakura',
         category: '',
         sex: 'Female',
+        sale: 0,
         logo: ''
       }
     };
@@ -72,6 +73,17 @@ class AddProduct extends Component {
                       name="price"
                       className="form-control"
                       value={this.state.product.price}
+                      onChange={this.handleChangeInput}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="sale">Sale</label>
+                    <input
+                      type="number"
+                      id="sale"
+                      name="sale"
+                      className="form-control"
+                      value={this.state.product.sale}
                       onChange={this.handleChangeInput}
                     />
                   </div>

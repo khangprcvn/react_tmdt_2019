@@ -6,7 +6,7 @@ const userContrl = require('../controllers/user');
 //   forwardAuthenticated
 // } = require('../config/auth');
 const pathPage = ['/', '/login', '/signup', '/product/women', '/product/men', '/product/brand/:id', 
-'/product/category/:name', '/product/cart', '/product/checkout', '/product/detail/:id'
+'/product/category/:name', '/product/cart', '/product/checkout', '/product/detail/:id', '/product/sale'
 ];
 
 pathPage.forEach(route => router.get(route, (req, res) => {

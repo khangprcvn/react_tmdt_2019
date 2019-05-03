@@ -10,7 +10,7 @@ class Checkout extends React.Component {
   onHandleSubmit() {
     if (confirm('Bạn muốn hoàn tất đơn hàng')) {
       localStorage.clear();
-      swal("Cảm ơn bạn!", "Đơn hàng đã hoàn tất", "success");
+      swal('Cảm ơn bạn!', 'Đơn hàng đã hoàn tất', 'success');
       this.props.history.push('/');
     } else {
       return;
@@ -20,7 +20,9 @@ class Checkout extends React.Component {
     let productCart = this.props.productCart;
     let totalProduct = 0;
     productCart.map(product => {
-      totalProduct += product.price * product.quantity;
+      totalProduct +=
+        product.price * product.quantity -
+        (product.sale / 100) * product.price * product.quantity;
     });
     const item = productCart.map((product, index) => (
       <div>
@@ -31,7 +33,9 @@ class Checkout extends React.Component {
             </div>
             <h6>{product.name}</h6>
             <p>
-              {product.price} x {product.quantity}
+              {product.price * product.quantity -
+                (product.sale / 100) * product.price}{' '}
+              x {product.quantity}
             </p>
           </li>
         </ul>
@@ -77,7 +81,9 @@ class Checkout extends React.Component {
                       />
                     </div>
                   </div>
-                  <button className="site-btn submit-order-btn">Thanh toán</button>
+                  <button className="site-btn submit-order-btn">
+                    Thanh toán
+                  </button>
                 </form>
               </div>
               <div className="col-lg-4 order-1 order-lg-2">
