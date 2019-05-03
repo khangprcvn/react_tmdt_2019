@@ -32,7 +32,9 @@ class HomeHeader extends React.Component {
           {/* <Link to="/signup" style={{ padding: '10px' }}>
             Đăng kí
           </Link> */}
-          <a href="/logout" style={{ padding: '10px' }}>Thoát</a>
+          <a href="/logout" style={{ padding: '10px' }}>
+            Thoát
+          </a>
         </div>
       );
     return (
@@ -96,40 +98,16 @@ class HomeHeader extends React.Component {
                 <Link to="/product/brand/sakura">Thương hiệu</Link>
                 <ul className="sub-menu">
                   <li>
-                    <Link
-                      to={{
-                        pathname: '/product/brand/sakura'
-                      }}
-                    >
-                      Sakura
-                    </Link>
+                    <a href="/product/brand/sakura">Sakura</a>
                   </li>
                   <li>
-                    <Link
-                      to={{
-                        pathname: '/product/brand/clinque'
-                      }}
-                    >
-                      Clinque
-                    </Link>
+                    <a href="/product/brand/paula">Paula</a>
                   </li>
                   <li>
-                    <Link
-                      to={{
-                        pathname: '/product/brand/neostrata'
-                      }}
-                    >
-                      Neostrata
-                    </Link>
+                    <a href="/product/brand/clinque">Clinque</a>
                   </li>
                   <li>
-                    <Link
-                      to={{
-                        pathname: '/product/brand/paula'
-                      }}
-                    >
-                      Paula
-                    </Link>
+                    <a href="/product/brand/neostrata">Neostrata</a>
                   </li>
                 </ul>
               </li>
