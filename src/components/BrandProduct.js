@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { addProduct } from '../redux/cart';
 import axios from 'axios';
 import Loading from './Loading';
 import '../js/bootstrap-notify.min.js';
+import ListProduct from './ListProduct';
 class BrandProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -77,55 +77,17 @@ class BrandProduct extends React.Component {
     this.props.history.push(`/product/detail/${id}`);
   }
   render() {
-    // console.log(this.state.product);
     let listItem;
     if (this.state.product) {
-      listItem = this.state.product.map((pro, index) => {
+      listItem = this.state.product.map(item => {
         return (
-          <div
-            className="col-lg-4 col-sm-4"
-            key={index}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="product-item">
-              <div className="pi-pic">
-                {pro.sale > 0 ? <div className="tag-sale"> - {pro.sale} %</div> : null}
-                <img
-                  src={pro.logo}
-                  alt=""
-                  style={{ marginTop: '20px' }}
-                  onClick={() => this.handleDetailProduct(pro._id)}
-                />
-                <div className="pi-links">
-                  <Link
-                    to={`/product/brand/${pro.brand}`}
-                    className="add-card"
-                    onClick={() => this.addToCart(pro)}
-                  >
-                    <i className="flaticon-bag" />
-                    <span>ADD TO CART</span>
-                  </Link>
-                  <Link
-                    to={`/product/brand/${pro.brand}`}
-                    className="wishlist-btn"
-                    onClick={this.addToFavorite}
-                  >
-                    <i className="flaticon-heart" />
-                  </Link>
-                </div>
-              </div>
-              <div className="pi-text">
-                <h6>{pro.price / 1000}.000đ</h6>
-                <Link
-                  to={{
-                    pathname: `/product/detail/${pro._id}`
-                  }}
-                >
-                  {pro.name}
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ListProduct
+            product={item}
+            clickCart={this.addToCart}
+            clickFavorite={this.addToFavorite}
+            clickDetailProduct={this.handleDetailProduct}
+            pathname={this.props.location.pathname}
+          />
         );
       });
     } else {
@@ -189,4 +151,3 @@ export default connect(
   mapStateToProps,
   { addProduct }
 )(BrandProduct);
-

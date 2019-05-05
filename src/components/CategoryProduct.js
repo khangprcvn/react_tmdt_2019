@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { addProduct } from '../redux/cart';
 import axios from 'axios';
 import Loading from './Loading';
 import loadjs from 'loadjs';
 import '../js/bootstrap-notify.min.js';
+import ListProduct from './ListProduct';
+import BrandCategoryMenu from './BrandCategoryMenu';
 class CategoryProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -83,54 +84,15 @@ class CategoryProduct extends React.Component {
   render() {
     let listItem;
     if (this.state.product) {
-      listItem = this.state.product.map((pro, index) => {
+      listItem = this.state.product.map(item => {
         return (
-          <div
-            className="col-lg-4 col-sm-4"
-            key={index}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="product-item">
-              <div className="pi-pic">
-                {pro.sale > 0 ? (
-                  <div className="tag-sale"> - {pro.sale} %</div>
-                ) : null}
-                <img
-                  src={pro.logo}
-                  alt=""
-                  style={{ marginTop: '20px' }}
-                  onClick={() => this.handleDetailProduct(pro._id)}
-                />
-                <div className="pi-links">
-                  <Link
-                    to={`/product/category/${pro.category}`}
-                    className="add-card"
-                    onClick={() => this.addToCart(pro)}
-                  >
-                    <i className="flaticon-bag" />
-                    <span>ADD TO CART</span>
-                  </Link>
-                  <Link
-                    to={`/product/category/${pro.category}`}
-                    className="wishlist-btn"
-                    onClick={() => this.addToFavorite}
-                  >
-                    <i className="flaticon-heart" />
-                  </Link>
-                </div>
-              </div>
-              <div className="pi-text">
-                <h6>{pro.price / 1000}.000đ</h6>
-                <Link
-                  to={{
-                    pathname: `/product/detail/${pro._id}`
-                  }}
-                >
-                  {pro.name}
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ListProduct
+            product={item}
+            clickCart={this.addToCart}
+            clickFavorite={this.addToFavorite}
+            clickDetailProduct={this.handleDetailProduct}
+            pathname={this.props.location.pathname}
+          />
         );
       });
     } else {
@@ -192,21 +154,7 @@ class CategoryProduct extends React.Component {
                   </ul>
                 </div>
                 <div className="filter-widget">
-                  <h2 className="fw-title">Brand</h2>
-                  <ul className="category-menu">
-                    <li>
-                      <Link to="/product/brand/sakura">Sakura</Link>
-                    </li>
-                    <li>
-                      <Link to="/product/brand/sakura">Paula</Link>
-                    </li>
-                    <li>
-                      <Link to="/product/brand/clinque">Clinque</Link>
-                    </li>
-                    <li>
-                      <Link to="/product/brand/neoStrata">NeoStrata</Link>
-                    </li>
-                  </ul>
+                  <BrandCategoryMenu />
                 </div>
               </div>
               <div className="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">

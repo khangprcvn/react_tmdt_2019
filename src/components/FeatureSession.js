@@ -62,7 +62,7 @@ export default class FeatureSection extends React.Component {
                   <div className="feature-icon">
                     <img src="/img/icons/1.png" alt="#" />
                   </div>
-                  <h2>Dịch vụ nhanh & miễn phí</h2>
+                  <h2>Nhanh & miễn phí</h2>
                 </div>
               </div>
             </div>

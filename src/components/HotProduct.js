@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Loading from './Loading';
 import { addProduct } from '../redux/cart';
 import '../js/bootstrap-notify.min.js';
 class HotProduct extends React.Component {

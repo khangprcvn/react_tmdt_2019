@@ -10,10 +10,6 @@ const compression = require('compression');
 
 require('../server/config/passport')(passport);
 
-// // connect database
-// const database = require('./config/database');
-// database.connectToServer();
-
 const MONGODB_URI =
   'mongodb+srv://khangprcvn:tmdt123@cluster0-c0j5d.mongodb.net/Product_DB';
 
@@ -42,16 +38,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// app.use(session({
-//   key: 'user_id',
-//   secret: 'secret',
-//   saveUninitialized: false,
-//   resave: false,
-//   cookie: {
-//     expires: 600000
-//   }
-// }));
 app.use(compression());
 
 const userView = require('./routes/home');
@@ -66,9 +52,12 @@ app.use('/products', productView);
 // app.listen(process.env.PORT || 5000, () => console.log('server listen port: 5000'));
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true
+  })
   .then(result => {
     app.listen(process.env.PORT || 5000);
+    console.log('done');
   })
   .catch(err => {
     console.log(err);

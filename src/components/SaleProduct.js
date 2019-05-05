@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { addProduct } from '../redux/cart';
 import axios from 'axios';
 import Loading from './Loading';
 import loadjs from 'loadjs';
 import '../js/bootstrap-notify.min.js';
+import CategoryMenu from './CategoryMenu';
+import BrandCategoryMenu from './BrandCategoryMenu';
+import ListProduct from './ListProduct';
 class SaleProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -82,54 +84,15 @@ class SaleProduct extends React.Component {
   render() {
     let listItem;
     if (this.state.product) {
-      listItem = this.state.product.map((pro, index) => {
+      listItem = this.state.product.map(item => {
         return (
-          <div
-            className="col-lg-4 col-sm-4"
-            key={index}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="product-item">
-              <div className="pi-pic">
-                {pro.sale > 0 ? (
-                  <div className="tag-sale"> - {pro.sale} %</div>
-                ) : null}
-                <img
-                  src={pro.logo}
-                  alt=""
-                  style={{ marginTop: '20px' }}
-                  onClick={() => this.handleDetailProduct(pro._id)}
-                />
-                <div className="pi-links">
-                  <Link
-                    to="/product/sale"
-                    className="add-card"
-                    onClick={() => this.addToCart(pro)}
-                  >
-                    <i className="flaticon-bag" />
-                    <span>ADD TO CART</span>
-                  </Link>
-                  <Link
-                    to="/product/sale"
-                    className="wishlist-btn"
-                    onClick={() => this.addToFavorite}
-                  >
-                    <i className="flaticon-heart" />
-                  </Link>
-                </div>
-              </div>
-              <div className="pi-text">
-                <h6>{pro.price / 1000}.000đ</h6>
-                <Link
-                  to={{
-                    pathname: `/product/detail/${pro._id}`
-                  }}
-                >
-                  {pro.name}
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ListProduct
+          product={item}
+          clickCart={this.addToCart}
+          clickFavorite={this.addToFavorite}
+          clickDetailProduct={this.handleDetailProduct}
+          pathname={this.props.location.pathname}
+        />
         );
       });
     } else {
@@ -151,61 +114,10 @@ class SaleProduct extends React.Component {
               <div className="col-lg-3 order-2 order-lg-1">
                 <div className="filter-widget">
                   <h2 className="fw-title">Categories</h2>
-                  <ul className="category-menu">
-                    <li>
-                      <a href="/product/sale">Chăm sóc da mặt</a>
-                      <ul class="sub-menu">
-                        <li>
-                          <a href="/product/category/duong am">Dưỡng ẩm</a>
-                        </li>
-                        <li>
-                          <a href="/product/category/duong trang">
-                            Dưỡng trắng
-                          </a>
-                        </li>
-                        <li>
-                          <a href="/product/category/mat na">Mặt nạ</a>
-                        </li>
-                        <li>
-                          <a href="/product/category/chong nang">Chống nắng</a>
-                        </li>
-                        <li>
-                          <a href="/product/category/tri mun">Trị mụn</a>
-                        </li>
-                        <li>
-                          <a href="/product/category/xit khoang">Xịt khoáng</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="/product/sale">Chăm sóc cơ thể</a>
-                      <ul class="sub-menu">
-                        <li>
-                          <a href="/product/category/sua tam">Sữa tắm</a>
-                        </li>
-                        <li>
-                          <a href="/product/category/duong the">Dưỡng thể</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
+                  <CategoryMenu /> 
                 </div>
                 <div className="filter-widget">
-                  <h2 className="fw-title">Brand</h2>
-                  <ul className="category-menu">
-                    <li>
-                      <Link to="/product/brand/sakura">Sakura</Link>
-                    </li>
-                    <li>
-                      <Link to="/product/brand/sakura">Paula</Link>
-                    </li>
-                    <li>
-                      <Link to="/product/brand/clinque">Clinque</Link>
-                    </li>
-                    <li>
-                      <Link to="/product/brand/neoStrata">NeoStrata</Link>
-                    </li>
-                  </ul>
+                  <BrandCategoryMenu />
                 </div>
               </div>
               <div className="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
