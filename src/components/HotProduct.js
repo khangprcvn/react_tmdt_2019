@@ -119,7 +119,7 @@ class HotProduct extends React.Component {
         <section className="product-filter-section">
           <div className="container">
             <div className="section-title">
-              <h2>Sản Phẩm Bán Chạy</h2>
+              <h2 style={{paddingTop: "20px"}}>Sản Phẩm Bán Chạy</h2>
             </div>
             <div className="row">{item}</div>
           </div>

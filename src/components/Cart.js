@@ -64,6 +64,7 @@ class Cart extends Component {
           <div className="quantity">
             <div className="pro-qty">
               <input
+                style={{width: "40px"}}
                 min="1"
                 id="quantity"
                 type="number"

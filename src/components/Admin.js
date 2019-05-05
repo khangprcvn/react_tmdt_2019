@@ -33,7 +33,6 @@ class Admin extends React.Component {
         information: ''
       }
     ];
-    // console.log('k', this.props.product);
     if (this.props.product !== undefined) {
       product = this.props.product;
     }
@@ -78,11 +77,6 @@ class Admin extends React.Component {
       <div className="container">
         <span />
         <div className="row">
-          {/* <p>
-            A simple example of how-to put a bordered table within a panel.
-            Responsive, place holders in header/footer for buttons or
-            pagination.
-          </p> */}
           <div className="col-md-10 col-md-offset-1">
             <div className="panel panel-default panel-table">
               <div className="panel-heading">
