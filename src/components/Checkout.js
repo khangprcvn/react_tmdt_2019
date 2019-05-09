@@ -1,14 +1,37 @@
 import React from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.onHandleSubmit = this.onHandleSubmit.bind(this);
+    this.state = {
+      name: '',
+      address: '',
+      email: '',
+      phone: '',
+      list: JSON.parse(window.localStorage.getItem('state')).cart.productCart
+    };
   }
+
+  handleChangeInput = e => {
+    const field = e.target.name;
+    const valueField = e.target.value;
+    this.setState({ [field]: valueField });
+  };
 
   onHandleSubmit() {
     if (confirm('Bạn muốn hoàn tất đơn hàng')) {
+      const url = '/products/list/cart';
+      const order = {
+        name: this.state.name,
+        address: this.state.address,
+        email: this.state.email,
+        phone: this.state.phone,
+        list: this.state.list
+      }
+      axios.post(url, order, {});
       localStorage.clear();
       swal('Cảm ơn bạn!', 'Đơn hàng đã hoàn tất', 'success');
       this.props.history.push('/');
@@ -16,7 +39,9 @@ class Checkout extends React.Component {
       return;
     }
   }
+
   render() {
+    console.log(this.state);
     let productCart = this.props.productCart;
     let totalProduct = 0;
     productCart.map(product => {
@@ -33,9 +58,8 @@ class Checkout extends React.Component {
             </div>
             <h6>{product.name}</h6>
             <p>
-              {product.price -
-                (product.sale / 100) * product.price}{' '}
-              x {product.quantity} sp
+              {product.price - (product.sale / 100) * product.price} x{' '}
+              {product.quantity} sp
             </p>
           </li>
         </ul>
@@ -62,17 +86,36 @@ class Checkout extends React.Component {
                   </div>
                   <div className="row address-inputs">
                     <div className="col-md-12">
-                      <input type="text" placeholder="Họ và tên" required />
-                      <input type="text" placeholder="Địa chỉ" required />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Họ và tên"
+                        onChange={this.handleChangeInput}
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="Địa chỉ"
+                        onChange={this.handleChangeInput}
+                        required
+                      />
                     </div>
                     <div className="col-md-6">
-                      <input type="email" placeholder="Email" required />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={this.handleChangeInput}
+                        required
+                      />
                     </div>
                     <div className="col-md-6">
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
+                        onChange={this.handleChangeInput}
                         placeholder="Phone example: 0385584056"
                         pattern="[0][1-9][0-9]*"
                         minLength="10"
