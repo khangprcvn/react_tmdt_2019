@@ -41,7 +41,6 @@ class Checkout extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     let productCart = this.props.productCart;
     let totalProduct = 0;
     productCart.map(product => {
