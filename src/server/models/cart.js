@@ -26,6 +26,10 @@ const cartSchema = new Schema({
     type: Array,
     required: true
   },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 module.exports = mongoose.model('carts', cartSchema);
