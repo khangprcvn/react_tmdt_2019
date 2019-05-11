@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
     "start": "cd src/server && node app.js",
-    "start:dev": "cd src/server && nodemon app.js"
+    "start:dev": "cd src/server && nodemon app.js --open"
   },
   "keywords": [],
   "author": "",

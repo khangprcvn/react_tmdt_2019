@@ -15,7 +15,8 @@ const HomePage = Loadable({loading: Loading, loader: () => import('./HomePage')}
   CheckoutPage = Loadable({ loading: Loading, loader: () => import('./Checkout')}),
   ProductDetailPage = Loadable({ loading: Loading, loader: () => import('./ProductDetail')}),
   CategoryProduct = Loadable({ loading: Loading, loader: () => import('./CategoryProduct')}),
-  SaleProduct = Loadable({ loading: Loading, loader: () => import('./SaleProduct')});
+  SaleProduct = Loadable({ loading: Loading, loader: () => import('./SaleProduct')}),
+  NotFoundPage = Loadable({ loading: Loading, loader: () => import('./NotFoundPage')});
 
 
 const routes = [
