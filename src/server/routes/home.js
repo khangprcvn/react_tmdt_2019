@@ -9,6 +9,7 @@ const pathPage = ['/', '/login', '/signup', '/product/women', '/product/men', '/
 '/product/category/:name', '/product/cart', '/product/checkout', '/product/detail/:id', '/product/sale'
 ];
 
+
 pathPage.forEach(route => router.get(route, (req, res) => {
   res.sendFile(path.join(__dirname, '../../../', './build/index.html'));
 }))

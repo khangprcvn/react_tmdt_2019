@@ -40,6 +40,8 @@ app.use(passport.session());
 
 app.use(compression());
 
+
+
 const userView = require('./routes/home');
 app.use('/', userView);
 
@@ -49,6 +51,12 @@ app.use('/admin', adminView);
 const productView = require('./routes/product');
 app.use('/products', productView);
 
+
+app.use((req, res, next) => {
+  return res.status(404).send('<p>Trang không được tìm thấy, click <a href="/" style="color:blue"> here &rarr; </a> để chở về trang chủ </p>');
+})
+
+
 // app.listen(process.env.PORT || 5000, () => console.log('server listen port: 5000'));
 
 mongoose
@@ -57,7 +65,7 @@ mongoose
   })
   .then(result => {
     app.listen(process.env.PORT || 5000);
-    console.log('Node server running on port 5000');  
+    console.log('Node server running on port 5000');
   })
   .catch(err => {
     console.log(err);
