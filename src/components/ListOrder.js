@@ -78,7 +78,9 @@ class ListOrder extends React.Component {
               <div className="panel-heading">
                 <div className="row">
                   <div className="col col-xs-6">
-                    <h3 className="panel-title">List Order</h3>
+                    <h3 className="panel-title" style={{ padding: '20px' }}>
+                      List Order
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -86,8 +88,12 @@ class ListOrder extends React.Component {
               {item}
             </div>
             <div>
-              <h3>Tổng sản phẩm: {totalProduct} sản phẩm</h3>
-              <h3>Tổng tiền: {totalPrice} VNĐ</h3>
+              <h3 className="panel-title" style={{ padding: '20px' }}>
+                Tổng sản phẩm : {totalProduct} sản phẩm
+              </h3>
+              <h3 className="panel-title" style={{ padding: '20px' }}>
+                Tổng tiền : {totalProduct} VNĐ
+              </h3>
             </div>
           </div>
         </div>
