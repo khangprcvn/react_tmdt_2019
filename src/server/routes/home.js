@@ -2,9 +2,6 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 const userContrl = require('../controllers/user');
-// const {
-//   forwardAuthenticated
-// } = require('../config/auth');
 const pathPage = ['/', '/login', '/signup', '/product/women', '/product/men', '/product/brand/:id', 
 '/product/category/:name', '/product/cart', '/product/checkout', '/product/detail/:id', '/product/sale'
 ];
@@ -13,11 +10,6 @@ const pathPage = ['/', '/login', '/signup', '/product/women', '/product/men', '/
 pathPage.forEach(route => router.get(route, (req, res) => {
   res.sendFile(path.join(__dirname, '../../../', './build/index.html'));
 }))
-
-
-// router.get('/signup', forwardAuthenticated, (req, res) => {
-//   res.sendFile(path.join(__dirname, '../../../', './build/index.html'));
-// })
 
 router.get('/home/state', (req, res) => {
   if (!req.session.passport) {
@@ -31,7 +23,6 @@ router.get('/home/state', (req, res) => {
   }
 
 })
-
 router.post('/signup', userContrl.signUp);
 
 router.post('/login', userContrl.logIn);

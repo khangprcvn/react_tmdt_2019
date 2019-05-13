@@ -8,6 +8,7 @@ const HomePage = Loadable({loading: Loading, loader: () => import('./HomePage')}
   LoginPage = Loadable({ loading: Loading, loader: () => import('./Login') }),
   SignUp = Loadable({ loading: Loading, loader: () => import('./Signup') }),
   AdminPage = Loadable({ loading: Loading, loader: () => import('./Admin') }),
+  ListOrderPage = Loadable({ loading: Loading, loader: () => import('./ListOrder') }),
   AddProduct = Loadable({ loading: Loading, loader: () => import('./AddProduct')}),
   WomenProduct = Loadable({ loading: Loading, loader: () => import('./WomenProduct')}),
   BrandProduct = Loadable( { loading: Loading, loader: () => import('./BrandProduct')}),
@@ -15,8 +16,7 @@ const HomePage = Loadable({loading: Loading, loader: () => import('./HomePage')}
   CheckoutPage = Loadable({ loading: Loading, loader: () => import('./Checkout')}),
   ProductDetailPage = Loadable({ loading: Loading, loader: () => import('./ProductDetail')}),
   CategoryProduct = Loadable({ loading: Loading, loader: () => import('./CategoryProduct')}),
-  SaleProduct = Loadable({ loading: Loading, loader: () => import('./SaleProduct')}),
-  NotFoundPage = Loadable({ loading: Loading, loader: () => import('./NotFoundPage')});
+  SaleProduct = Loadable({ loading: Loading, loader: () => import('./SaleProduct')});
 
 
 const routes = [
@@ -34,7 +34,8 @@ const routes = [
 
   
   { view: 'admin', path: '/admin', component: AdminPage, exact: true },
-  { view: 'admin', path: '/admin/products/add', component: AddProduct, exact: true}
+  { view: 'admin', path: '/admin/products/add', component: AddProduct, exact: true},
+  { view: 'admin', path: '/admin/products/list-order', component: ListOrderPage, exact: true},
 ];
 
 const switches = (

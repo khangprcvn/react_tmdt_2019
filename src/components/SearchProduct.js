@@ -14,8 +14,7 @@ class SearchProduct extends React.Component {
   };
 
   handleSubmitSearch = e => {
-    e.preventDefault();
-    console.log(this.state.search);
+    // e.preventDefault();
   }
 
   render() {

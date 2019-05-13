@@ -57,8 +57,6 @@ app.use((req, res, next) => {
 })
 
 
-// app.listen(process.env.PORT || 5000, () => console.log('server listen port: 5000'));
-
 mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true

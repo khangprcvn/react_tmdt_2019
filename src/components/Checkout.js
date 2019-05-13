@@ -21,7 +21,7 @@ class Checkout extends React.Component {
     this.setState({ [field]: valueField });
   };
 
-  onHandleSubmit() {
+  onHandleSubmit(total) {
     if (confirm('Bạn muốn hoàn tất đơn hàng')) {
       const url = '/products/list/cart';
       const order = {
@@ -29,7 +29,8 @@ class Checkout extends React.Component {
         address: this.state.address,
         email: this.state.email,
         phone: this.state.phone,
-        list: this.state.list
+        list: this.state.list,
+        total: total
       }
       axios.post(url, order, {});
       localStorage.clear();
@@ -43,10 +44,12 @@ class Checkout extends React.Component {
   render() {
     let productCart = this.props.productCart;
     let totalProduct = 0;
+    let total = 0;
     productCart.map(product => {
       totalProduct +=
         product.price * product.quantity -
         (product.sale / 100) * product.price * product.quantity;
+      total += product.quantity;
     });
     const item = productCart.map((product, index) => (
       <div>
@@ -78,7 +81,7 @@ class Checkout extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-8 order-2 order-lg-1">
-                <form className="checkout-form" onSubmit={this.onHandleSubmit}>
+                <form className="checkout-form" onSubmit={() => this.onHandleSubmit(total)}>
                   <div className="cf-title">
                     Vui lòng điền đầy đủ thông tin của bạn. Chúng tôi sẽ không
                     spam email của bạn

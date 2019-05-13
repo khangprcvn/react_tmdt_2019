@@ -26,6 +26,10 @@ const cartSchema = new Schema({
     type: Array,
     required: true
   },
+  total: {
+    type: Number,
+    require: true
+  },
   date: {
     type: Date,
     default: Date.now
