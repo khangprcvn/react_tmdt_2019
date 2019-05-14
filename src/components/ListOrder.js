@@ -46,6 +46,7 @@ class ListOrder extends React.Component {
               <th>Địa chỉ</th>
               <th>Số điện thoại</th>
               <th>Tổng sản phảm đã mua</th>
+              <th>Ngày - Giờ</th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +64,7 @@ class ListOrder extends React.Component {
               <td>{order.address}</td>
               <td>0{order.phone}</td>
               <td>{order.total}</td>
+              <td>{order.date}</td>
             </tr>
           </tbody>
         </table>

@@ -1,11 +1,24 @@
 import React from 'react';
+// import video from '../img/video.mp4';
 export default class FeatureSection extends React.Component {
   render() {
     return (
       <div>
         <section className="hero-section">
           <div className="hero-slider owl-carousel">
-            <div className="hs-item set-bg" data-setbg="/img/bg-6.jpg">
+            <div className="container">
+              <div className="row">
+                <iframe
+                  width="1200"
+                  height="480"
+                  src="https://www.youtube.com/embed/Iz6sUpk_gNU"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+            {/* <div className="hs-item set-bg" data-setbg="/img/bg-6.jpg">
               <div className="container">
                 <div className="row">
                   <div className="col-xl-6 col-lg-7 text-white">
@@ -32,7 +45,7 @@ export default class FeatureSection extends React.Component {
                   <h2>99K</h2>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="container">
             <div className="slide-num-holder" id="snh-1" />
