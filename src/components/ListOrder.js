@@ -92,7 +92,7 @@ class ListOrder extends React.Component {
                 Tổng sản phẩm : {totalProduct} sản phẩm
               </h3>
               <h3 className="panel-title" style={{ padding: '20px' }}>
-                Tổng tiền : {totalProduct} VNĐ
+                Tổng tiền : {totalPrice} VNĐ
               </h3>
             </div>
           </div>
@@ -101,14 +101,5 @@ class ListOrder extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return state.product;
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   { getAllProduct, deleteProduct }
-// )(Admin);
 
 export default ListOrder;
